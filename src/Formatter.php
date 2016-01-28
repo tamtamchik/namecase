@@ -26,7 +26,7 @@ class Formatter
             $firstLetterLower = $string[0] == mb_strtolower($string[0]);
             $allLowerOrUpper  = (mb_strtolower($string) == $string || mb_strtoupper($string) == $string);
 
-            if ( ! $firstLetterLower || ! $allLowerOrUpper) return $string;
+            if ( ! ($firstLetterLower || $allLowerOrUpper)) return $string;
         }
 
         $local = mb_strtolower($string);
