@@ -1,4 +1,4 @@
-# NameCase
+# NameCase [![SensioLabsInsight](https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a/small.png)](https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a)
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
