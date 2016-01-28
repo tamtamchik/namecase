@@ -4,6 +4,12 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
 {
     private $names = [
         "Keith", "Yuri's", "Leigh-Williams", "McCarthy",
+        // Mac exceptions
+        "Machin", "Machlin", "Machar",
+        "Mackle", "Macklin", "Mackie",
+        "Macquarie", "Machado", "Macevicius",
+        "Maciulis", "Macias", "MacMurdo",
+        // General
         "O'Callaghan", "St. John", "von Streit",
         "van Dyke", "Van", "ap Llwyd Dafydd",
         "al Fahd", "Al",
@@ -15,12 +21,7 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
         "von Trapp", "la Poisson", "le Figaro",
         "Mack Knife", "Dougal MacDonald",
         "Ruiz y Picasso", "Dato e Iradier", "Mas i Gavarró",
-        # Mac exceptions
-        "Machin", "Machlin", "Machar",
-        "Mackle", "Macklin", "Mackie",
-        "Macquarie", "Machado", "Macevicius",
-        "Maciulis", "Macias", "MacMurdo",
-        # Roman numerals
+        // Roman numerals
         "Henry VIII", "Louis III", "Louis XIV",
         "Charles II", "Fred XLIX", "Yusof bin Ishak",
     ];
@@ -35,7 +36,7 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /** @test */
+    /** Test base UTF-8 support. */
     public function testInternationalization()
     {
         $properCased = 'Iñtërnâtiônàlizætiøn';
