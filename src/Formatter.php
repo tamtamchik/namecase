@@ -5,7 +5,7 @@
  */
 class Formatter
 {
-    const DEFAULT_OPTIONS = [
+    private static $options = [
         'lazy'    => true,
         'irish'   => true,
         'spanish' => true,
@@ -19,7 +19,7 @@ class Formatter
      */
     public static function nc($string, array $options = [])
     {
-        $options = array_merge(self::DEFAULT_OPTIONS, $options);
+        $options = array_merge(self::$options, $options);
 
         //Skip if string is mixed case
         if ($options['lazy']) {

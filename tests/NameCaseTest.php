@@ -2,7 +2,7 @@
 
 class NameCaseTest extends \PHPUnit_Framework_TestCase
 {
-    const NAMES = [
+    private $names = [
         "Keith", "Yuri's", "Leigh-Williams", "McCarthy",
         "O'Callaghan", "St. John", "von Streit",
         "van Dyke", "Van", "ap Llwyd Dafydd",
@@ -30,7 +30,7 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testNameCase()
     {
-        foreach (self::NAMES as $name) {
+        foreach ($this->names as $name) {
             $this->assertEquals($name, str_name_case(mb_strtolower($name)));
         }
     }
