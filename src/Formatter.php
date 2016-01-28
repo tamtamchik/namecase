@@ -11,16 +11,6 @@ class Formatter
         'spanish' => true,
     ];
 
-    private static function upper($matches)
-    {
-        return strtoupper($matches[0]);
-    }
-
-    private static function lower($matches)
-    {
-        return strtolower($matches[0]);
-    }
-
     /**
      * @param string $string
      * @param array  $options
@@ -29,25 +19,25 @@ class Formatter
      */
     public static function nc($string, array $options = [])
     {
-        //$options = array_merge(self::DEFAULT_OPTIONS, $options);
-        //
-        ////Skip if string is mixed case
-        //if ($options['lazy']) {
-        //    $firstLetterLower = $string[0] == strtolower($string[0]);
-        //    $allLowerOrUpper  = (strtolower($string) == $string || strtoupper($string) == $string);
-        //
-        //    if ( ! $firstLetterLower || ! $allLowerOrUpper) return $string;
-        //}
+        $options = array_merge(self::DEFAULT_OPTIONS, $options);
 
-        $local = strtolower($string);
+        //Skip if string is mixed case
+        if ($options['lazy']) {
+            $firstLetterLower = $string[0] == mb_strtolower($string[0]);
+            $allLowerOrUpper  = (mb_strtolower($string) == $string || mb_strtoupper($string) == $string);
+
+            if ( ! $firstLetterLower || ! $allLowerOrUpper) return $string;
+        }
+
+        $local = mb_strtolower($string);
 
         // Capitalize
-        $local = preg_replace_callback('/\b\w/', function ($matches) {
-            return strtoupper($matches[0]);
+        $local = mb_ereg_replace_callback('\b\w', function ($matches) {
+            return mb_strtoupper($matches[0]);
         }, $local);
 
-        $local = preg_replace_callback('/\'\w\b/', function ($matches) {
-            return strtolower($matches[0]);
+        $local = mb_ereg_replace_callback('\'\w\b', function ($matches) {
+            return mb_strtolower($matches[0]);
         }, $local); # Lowercase 's
 
         return $local;

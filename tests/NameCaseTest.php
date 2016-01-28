@@ -31,14 +31,14 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
     public function testNameCase()
     {
         foreach (self::NAMES as $name) {
-            $this->assertEquals($name, str_name_case(strtolower($name)));
+            $this->assertEquals($name, str_name_case(mb_strtolower($name)));
         }
     }
 
-    ///** @test */
-    //public function testInternationalization()
-    //{
-    //    $properCased = 'Iñtërnâtiônàlizætiøn';
-    //    $this->assertEquals($properCased, str_name_case(strtolower($properCased)));
-    //}
+    /** @test */
+    public function testInternationalization()
+    {
+        $properCased = 'Iñtërnâtiônàlizætiøn';
+        $this->assertEquals($properCased, str_name_case(mb_strtolower($properCased)));
+    }
 }
