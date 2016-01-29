@@ -5,12 +5,14 @@
  */
 class Formatter
 {
+    // Default options
     private static $options = [
         'lazy'    => true,
         'irish'   => true,
         'spanish' => true,
     ];
 
+    // Irish exceptions
     private static $exceptionsIrish = [
         '\bMacEdo'     => 'Macedo',
         '\bMacEvicius' => 'Macevicius',
@@ -27,7 +29,26 @@ class Formatter
         '\bMacQuarie'  => 'Macquarie',
     ];
 
+    // General replacements
+    private static $replacements = [
+        '\bAl(?=\s+\w)'         => 'al',        // al Arabic or forename Al.
+        '\b(Bin|Binti|Binte)\b' => 'bin',       // bin, binti, binte Arabic
+        '\bAp\b'                => 'ap',        // ap Welsh.
+        '\bBen(?=\s+\w)'        => 'ben',       // ben Hebrew or forename Ben.
+        '\bDell([ae])\b'        => 'dell\1',    // della and delle Italian.
+        '\bD([aeiou])\b'        => 'd\1',       // da, de, di Italian; du French; do Brasil
+        '\bD([ao]s)\b'          => 'd\1',       // das, dos Brasileiros
+        '\bDe([lr])\b'          => 'de\1',      // del Italian; der Dutch/Flemish.
+        '\bEl\b'                => 'el',        // el Greek or El Spanish.
+        '\bLa\b'                => 'la',        // la French or La Spanish.
+        '\bL([eo])\b'           => 'l\1',       // lo Italian; le French.
+        '\bVan(?=\s+\w)'        => 'van',       // van German or forename Van.
+        '\bVon\b'               => 'von',       // von Dutch/Flemish
+    ];
+
     /**
+     * Main function for NameCase.
+     *
      * @param string $string
      * @param array  $options
      *
@@ -42,14 +63,50 @@ class Formatter
             if (self::skipMixed($string)) return $string;
         }
 
+        $local = mb_strtolower($string);
+
         // Capitalize
-        $local = mb_convert_case(mb_strtolower($string), MB_CASE_TITLE);
+        $local = self::capitalize($local);
 
         if ($options['irish']) {
             $local = self::updateIrish($local);
         }
 
+        $local = self::updateIrish($local);
+
+        // Fixes for "son (daughter) of" etc
+        foreach (self::$replacements as $pattern => $replacement) {
+            $local = mb_ereg_replace($pattern, $replacement, $local);
+        }
+
+        if ($options['spanish']) {
+            foreach (["Y", "E", "I"] as $conjunction) {
+                $local = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $local);
+            }
+        }
+
         return $local;
+    }
+
+    /**
+     * Capitalize first letters.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    private static function capitalize($string)
+    {
+        $string = \mb_ereg_replace_callback('\b\w', function ($matches) {
+            return mb_strtoupper($matches[0]);
+        }, $string);
+
+        // Lowercase 's
+        $string = \mb_ereg_replace_callback('\'\w\b', function ($matches) {
+            return mb_strtolower($matches[0]);
+        }, $string);
+
+        return $string;
     }
 
     /**
@@ -76,7 +133,7 @@ class Formatter
      */
     private static function updateIrish($string)
     {
-        if (mb_ereg_match('\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('\bMc', $string)) {
+        if (mb_ereg_match('.*?\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('.*?\bMc', $string)) {
 
             $string = \mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
                 return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
