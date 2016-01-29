@@ -62,29 +62,22 @@ class Formatter
      */
     public static function nc($string, array $options = [])
     {
-        $options = array_merge(self::$options, $options);
+        self::$options = array_merge(self::$options, $options);
 
         // Do not do anything if string is mixed and lazy option is true.
         if ($options['lazy'] && self::skipMixed($string)) return $string;
 
         // Capitalize
         $string = self::capitalize($string);
-
-        if ($options['irish'])
-            $string = self::updateIrish($string);
+        $string = self::updateIrish($string);
 
         // Fixes for "son (daughter) of" etc
         foreach (self::$replacements as $pattern => $replacement) {
             $string = mb_ereg_replace($pattern, $replacement, $string);
         }
 
-        // Fix roman numeral names
-        $string = mb_ereg_replace_callback(self::$romanRegex, function ($matches) {
-            return mb_strtoupper($matches[0]);
-        }, $string);
-
-        if ($options['spanish'])
-            $string = self::fixConjunction($string);
+        $string = self::updateRoman($string);
+        $string = self::fixConjunction($string);
 
         return $string;
     }
@@ -136,6 +129,8 @@ class Formatter
      */
     private static function updateIrish($string)
     {
+        if ( ! self::$options['irish']) return $string;
+
         if (mb_ereg_match('.*?\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('.*?\bMc', $string)) {
 
             $string = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
@@ -160,10 +155,26 @@ class Formatter
      */
     private static function fixConjunction($string)
     {
+        if ( ! self::$options['spanish']) return $string;
+
         foreach (self::$conjunctions as $conjunction) {
             $string = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $string);
         }
 
         return $string;
+    }
+
+    /**
+     * Fix roman numeral names.
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    private static function updateRoman($string)
+    {
+        return mb_ereg_replace_callback(self::$romanRegex, function ($matches) {
+            return mb_strtoupper($matches[0]);
+        }, $string);
     }
 }
