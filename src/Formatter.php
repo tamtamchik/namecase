@@ -28,13 +28,11 @@ class Formatter
             if (self::skipMixed($string)) return $string;
         }
 
-        $local = mb_strtolower($string, self::$encoding);
-
         // Capitalize
-        $local = mb_convert_case($string, MB_CASE_TITLE, self::$encoding);
+        $local = mb_convert_case(mb_strtolower($string, self::$encoding), MB_CASE_TITLE, self::$encoding);
 
         if ($options['irish']) {
-            $local = self::fixIrish($local);
+            $local = self::updateIrish($local);
         }
 
         return $local;
@@ -62,7 +60,7 @@ class Formatter
      *
      * @return string
      */
-    private static function fixIrish($string)
+    private static function updateIrish($string)
     {
         if (mb_ereg_match('\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('\bMc', $string)) {
 
