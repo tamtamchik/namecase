@@ -13,7 +13,7 @@ class Formatter
     ];
 
     // Irish exceptions
-    private static $exceptionsIrish = [
+    private static $exceptions = [
         '\bMacEdo'     => 'Macedo',
         '\bMacEvicius' => 'Macevicius',
         '\bMacHado'    => 'Machado',
@@ -46,6 +46,9 @@ class Formatter
         '\bVon\b'               => 'von',       // von Dutch/Flemish
     ];
 
+    // Spanish conjunctions
+    private static $conjunctions = ["Y", "E", "I"];
+
     /**
      * Main function for NameCase.
      *
@@ -63,29 +66,21 @@ class Formatter
             if (self::skipMixed($string)) return $string;
         }
 
-        $local = mb_strtolower($string);
-
         // Capitalize
-        $local = self::capitalize($local);
+        $string = self::capitalize($string);
 
-        if ($options['irish']) {
-            $local = self::updateIrish($local);
-        }
-
-        $local = self::updateIrish($local);
+        if ($options['irish'])
+            $string = self::updateIrish($string);
 
         // Fixes for "son (daughter) of" etc
         foreach (self::$replacements as $pattern => $replacement) {
-            $local = mb_ereg_replace($pattern, $replacement, $local);
+            $string = mb_ereg_replace($pattern, $replacement, $string);
         }
 
-        if ($options['spanish']) {
-            foreach (["Y", "E", "I"] as $conjunction) {
-                $local = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $local);
-            }
-        }
+        if ($options['spanish'])
+            $string = self::fixConjunction($string);
 
-        return $local;
+        return $string;
     }
 
     /**
@@ -97,12 +92,14 @@ class Formatter
      */
     private static function capitalize($string)
     {
-        $string = \mb_ereg_replace_callback('\b\w', function ($matches) {
+        $string = mb_strtolower($string);
+
+        $string = mb_ereg_replace_callback('\b\w', function ($matches) {
             return mb_strtoupper($matches[0]);
         }, $string);
 
         // Lowercase 's
-        $string = \mb_ereg_replace_callback('\'\w\b', function ($matches) {
+        $string = mb_ereg_replace_callback('\'\w\b', function ($matches) {
             return mb_strtolower($matches[0]);
         }, $string);
 
@@ -125,7 +122,7 @@ class Formatter
     }
 
     /**
-     * Fix Irish names.
+     * Update for Irish names.
      *
      * @param string $string
      *
@@ -135,16 +132,32 @@ class Formatter
     {
         if (mb_ereg_match('.*?\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('.*?\bMc', $string)) {
 
-            $string = \mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
+            $string = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
                 return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
             }, $string);
 
             // Now fix "Mac" exceptions
-            foreach (self::$exceptionsIrish as $pattern => $replacement) {
+            foreach (self::$exceptions as $pattern => $replacement) {
                 $string = mb_ereg_replace($pattern, $replacement, $string);
             }
         }
 
         return mb_ereg_replace('Macmurdo', 'MacMurdo', $string);
+    }
+
+    /**
+     * Fix Spanish conjunctions.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    private static function fixConjunction($string)
+    {
+        foreach (self::$conjunctions as $conjunction) {
+            $string = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $string);
+        }
+
+        return $string;
     }
 }
