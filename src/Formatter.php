@@ -11,6 +11,8 @@ class Formatter
         'spanish' => true,
     ];
 
+    private static $encoding = 'UTF-8';
+
     /**
      * @param string $string
      * @param array  $options
@@ -19,6 +21,9 @@ class Formatter
      */
     public static function nc($string, array $options = [])
     {
+        $encoding = mb_internal_encoding();
+        mb_internal_encoding(self::$encoding);
+
         $options = array_merge(self::$options, $options);
 
         // Do not do anything if string is mixed and lazy option is true.
@@ -34,6 +39,8 @@ class Formatter
         if ($options['irish']) {
             $local = self::fixIrish($local);
         }
+
+        mb_internal_encoding($encoding);
 
         return $local;
     }
