@@ -65,7 +65,7 @@ class Formatter
         self::$options = array_merge(self::$options, $options);
 
         // Do not do anything if string is mixed and lazy option is true.
-        if ($options['lazy'] && self::skipMixed($string)) return $string;
+        if (self::$options['lazy'] && self::skipMixed($string)) return $string;
 
         // Capitalize
         $string = self::capitalize($string);
