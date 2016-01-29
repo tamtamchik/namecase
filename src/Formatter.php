@@ -5,14 +5,14 @@
  */
 class Formatter
 {
-    // Default options
+    // Default options.
     private static $options = [
         'lazy'    => true,
         'irish'   => true,
         'spanish' => true,
     ];
 
-    // Irish exceptions
+    // Irish exceptions.
     private static $exceptions = [
         '\bMacEdo'     => 'Macedo',
         '\bMacEvicius' => 'Macevicius',
@@ -29,7 +29,7 @@ class Formatter
         '\bMacQuarie'  => 'Macquarie',
     ];
 
-    // General replacements
+    // General replacements.
     private static $replacements = [
         '\bAl(?=\s+\w)'         => 'al',        // al Arabic or forename Al.
         '\b(Bin|Binti|Binte)\b' => 'bin',       // bin, binti, binte Arabic
@@ -46,8 +46,11 @@ class Formatter
         '\bVon\b'               => 'von',       // von Dutch/Flemish
     ];
 
-    // Spanish conjunctions
+    // Spanish conjunctions.
     private static $conjunctions = ["Y", "E", "I"];
+
+    // Roman letters regexp.
+    private static $romanRegex = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
 
     /**
      * Main function for NameCase.
@@ -62,9 +65,7 @@ class Formatter
         $options = array_merge(self::$options, $options);
 
         // Do not do anything if string is mixed and lazy option is true.
-        if ($options['lazy']) {
-            if (self::skipMixed($string)) return $string;
-        }
+        if ($options['lazy'] && self::skipMixed($string)) return $string;
 
         // Capitalize
         $string = self::capitalize($string);
@@ -76,6 +77,11 @@ class Formatter
         foreach (self::$replacements as $pattern => $replacement) {
             $string = mb_ereg_replace($pattern, $replacement, $string);
         }
+
+        // Fix roman numeral names
+        $string = mb_ereg_replace_callback(self::$romanRegex, function ($matches) {
+            return mb_strtoupper($matches[0]);
+        }, $string);
 
         if ($options['spanish'])
             $string = self::fixConjunction($string);

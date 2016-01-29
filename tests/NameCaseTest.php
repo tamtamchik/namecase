@@ -22,8 +22,8 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
         "Mack Knife", "Dougal MacDonald",
         "Ruiz y Picasso", "Dato e Iradier", "Mas i Gavarró",
         // Roman numerals
-        //"Henry VIII", "Louis III", "Louis XIV",
-        //"Charles II", "Fred XLIX", "Yusof bin Ishak",
+        "Henry VIII", "Louis III", "Louis XIV",
+        "Charles II", "Fred XLIX", "Yusof bin Ishak",
     ];
 
     /** Test base NameCase. */
