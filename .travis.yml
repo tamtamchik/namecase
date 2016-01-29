@@ -19,6 +19,7 @@ matrix:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+  - phpenv config-add .travis.php.ini
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
