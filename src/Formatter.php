@@ -132,13 +132,7 @@ class Formatter
         if ( ! self::$options['irish']) return $string;
 
         if (mb_ereg_match('.*?\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('.*?\bMc', $string)) {
-
             $string = self::updateMac($string);
-
-            // Now fix "Mac" exceptions
-            foreach (self::$exceptions as $pattern => $replacement) {
-                $string = mb_ereg_replace($pattern, $replacement, $string);
-            }
         }
 
         return mb_ereg_replace('Macmurdo', 'MacMurdo', $string);
@@ -185,8 +179,15 @@ class Formatter
      */
     private static function updateMac($string)
     {
-        return mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
+        $string = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
             return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
         }, $string);
+
+        // Now fix "Mac" exceptions
+        foreach (self::$exceptions as $pattern => $replacement) {
+            $string = mb_ereg_replace($pattern, $replacement, $string);
+        }
+
+        return $string;
     }
 }
