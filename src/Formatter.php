@@ -31,7 +31,7 @@ class Formatter
         $local = mb_strtolower($string, self::$encoding);
 
         // Capitalize
-        $local = self::capitalize($local);
+        $local = mb_convert_case($string, MB_CASE_TITLE, self::$encoding);
 
         if ($options['irish']) {
             $local = self::fixIrish($local);
@@ -53,27 +53,6 @@ class Formatter
         $allLowerOrUpper  = (mb_strtolower($string, self::$encoding) == $string || mb_strtoupper($string, self::$encoding) == $string);
 
         return ! ($firstLetterLower || $allLowerOrUpper);
-    }
-
-    /**
-     * Capitalize first letters.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    private static function capitalize($string)
-    {
-        $string = \mb_ereg_replace_callback('\b\w', function ($matches) {
-            return mb_strtoupper($matches[0], self::$encoding);
-        }, $string);
-
-        // Lowercase 's
-        $string = \mb_ereg_replace_callback('\'\w\b', function ($matches) {
-            return mb_strtolower($matches[0], self::$encoding);
-        }, $string);
-
-        return $string;
     }
 
     /**
