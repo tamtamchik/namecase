@@ -22,6 +22,9 @@ class Formatter
     public static function nc($string, array $options = [])
     {
         $encoding = mb_internal_encoding();
+
+        var_dump($encoding);
+
         mb_internal_encoding(self::$encoding);
 
         $options = array_merge(self::$options, $options);
@@ -69,12 +72,12 @@ class Formatter
      */
     private static function capitalize($string)
     {
-        $string = mb_ereg_replace_callback('\b\w', function ($matches) {
+        $string = \mb_ereg_replace_callback('\b\w', function ($matches) {
             return mb_strtoupper($matches[0]);
         }, $string);
 
         // Lowercase 's
-        $string = mb_ereg_replace_callback('\'\w\b', function ($matches) {
+        $string = \mb_ereg_replace_callback('\'\w\b', function ($matches) {
             return mb_strtolower($matches[0]);
         }, $string);
 
@@ -91,7 +94,7 @@ class Formatter
     private static function fixIrish($string)
     {
         if (mb_ereg_match('\bMac[A-Za-z]{2,}[^aciozj]\b', $string) || mb_ereg_match('\bMc', $string)) {
-            $string = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
+            $string = \mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
                 return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
             }, $string);
 
