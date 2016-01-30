@@ -1,5 +1,7 @@
 <?php namespace Tamtamchik\NameCase\Test;
 
+use Tamtamchik\NameCase\Formatter;
+
 class NameCaseTest extends \PHPUnit_Framework_TestCase
 {
     private $names = [
@@ -39,5 +41,23 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
     {
         $properCased = 'Iñtërnâtiônàlizætiøn';
         $this->assertEquals($properCased, str_name_case(mb_strtolower($properCased)));
+    }
+
+    /** Test Static call. */
+    public function testStatic()
+    {
+        foreach ($this->names as $name) {
+            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
+        }
+    }
+
+    /** Test Instantiation. */
+    public function testInstantiation()
+    {
+        $formatter = new Formatter();
+
+        foreach ($this->names as $name) {
+            $this->assertEquals($name, $formatter->nameCase(mb_strtolower($name)));
+        }
     }
 }

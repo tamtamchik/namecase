@@ -14,6 +14,6 @@ if ( ! function_exists('str_name_case')) {
      */
     function str_name_case($string, $options = [])
     {
-        return Formatter::nc($string, $options);
+        return Formatter::nameCase($string, $options);
     }
 }

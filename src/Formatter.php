@@ -52,6 +52,11 @@ class Formatter
     // Roman letters regexp.
     private static $romanRegex = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
 
+    public function __construct(array $options = [])
+    {
+        self::$options = array_merge(self::$options, $options);
+    }
+
     /**
      * Main function for NameCase.
      *
@@ -60,7 +65,7 @@ class Formatter
      *
      * @return string
      */
-    public static function nc($string, array $options = [])
+    public static function nameCase($string = '', array $options = [])
     {
         self::$options = array_merge(self::$options, $options);
 
