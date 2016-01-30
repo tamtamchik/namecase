@@ -56,7 +56,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Testing
 
 ``` bash
-$ composer test
+$ composer tests
 ```
 
 ## Contributing
