@@ -53,10 +53,11 @@ $formatter->nameCase("LOUIS XIV");    // => Louis XIV
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-## Testing
+## Testing & Demo
 
 ``` bash
 $ composer tests
+$ composer demo
 ```
 
 ## Contributing
