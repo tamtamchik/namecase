@@ -26,6 +26,8 @@ Via Composer
 ``` bash
 $ composer require tamtamchik/namecase
 ```
+> **Warning!** For PHP < 5.6, please be sure to setup UTF-8 as defaut encoding in your `php.ini`  
+`mbstring.internal_encoding = UTF-8;`
 
 ## Usage
 
