@@ -1,7 +1,7 @@
 {
     "name": "tamtamchik/namecase",
     "type": "library",
-    "description": "A library for converting strings to be properly cased. This is good for converting denormalized data to human friendly data.",
+    "description": "This package allows you to convert names into the correct case where possible.",
     "keywords": [
         "tamtamchik",
         "namecase",
