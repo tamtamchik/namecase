@@ -39,6 +39,7 @@ class Formatter
         '\bD([aeiou])\b'        => 'd\1',       // da, de, di Italian; du French; do Brasil
         '\bD([ao]s)\b'          => 'd\1',       // das, dos Brasileiros
         '\bDe([lr])\b'          => 'de\1',      // del Italian; der Dutch/Flemish.
+        '\bDen\b'	        => 'den',       // (van) den Dutch
         '\bEl\b'                => 'el',        // el Greek or El Spanish.
         '\bLa\b'                => 'la',        // la French or La Spanish.
         '\bL([eo])\b'           => 'l\1',       // lo Italian; le French.
