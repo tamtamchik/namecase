@@ -4,19 +4,18 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 1.0.0 - YYYY-MM-DD
+## 1.0.2 - 2016-02-06
 
 ### Added
-- Nothing
+- Dutch: `den` (thx, @nexxai) 
 
-### Deprecated
-- Nothing
+## 1.0.1 - 2016-01-30
 
-### Fixed
-- Nothing
+### Added
+- static call
+- instantiation
+- tests
 
-### Removed
-- Nothing
+## 1.0.0 - 2016-01-29
 
-### Security
-- Nothing
+Initial release.
