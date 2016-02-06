@@ -12,7 +12,7 @@ Forenames and surnames are often stored either wholly in UPPERCASE or wholly in 
 Currently correctly name cases names which include any of the following:  
 
 ```
-Mc, Mac, al, el, ap, da, de, delle, della, den, di, du, del, der, la, le, lo, van and von.
+Mc, Mac, al, el, ap, da, de, delle, della, di, du, del, der, den, la, le, lo, van and von.
 ```
 
 It correctly deals with names which contain apostrophes and hyphens too.
