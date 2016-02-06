@@ -42,11 +42,12 @@ str_name_case("VON STREIT");          // => von Streit
 str_name_case("AP LLWYD DAFYDD");     // => ap Llwyd Dafydd
 str_name_case("HENRY VIII");          // => Henry VIII
 
+use \Tamtamchik\NameCase\Formatter;
+
 // As static call
 Formatter::nameCase("VAN DYKE");      // => van Dyke
 
 // As instance
-use \Tamtamchik\NameCase\Formatter;
 $formatter = new Formatter();
 $formatter->nameCase("LOUIS XIV");    // => Louis XIV
 ```
