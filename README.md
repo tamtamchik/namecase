@@ -1,4 +1,4 @@
-# NameCase [![SensioLabsInsight](https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a/small.png)](https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a)
+# NameCase
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -6,6 +6,7 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![SensioLabsInsight][ico-insight]][link-insight]
 
 Forenames and surnames are often stored either wholly in UPPERCASE or wholly in lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are normally stored separately if they do appear in a single string, whitespace separated, NameCase deals correctly with them.  
 
@@ -79,12 +80,12 @@ Any bugs in the PHP port are my fault.
 
 ## Credits
 
-Original PERL `Lingua::EN::NameCase` Version: 
+Original PERL `Lingua::EN::NameCase` Version:
 
-- Copyright &copy; Mark Summerfield 1998-2014. All Rights Reserved. 
+- Copyright &copy; Mark Summerfield 1998-2014. All Rights Reserved.
 - Copyright &copy; Barbie 2014-2015. All Rights Reserved.
 
-Ruby Version: 
+Ruby Version:
 
 - Copyright &copy; Aaron Patterson 2006. All Rights Reserved.
 
@@ -103,6 +104,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/tamtamchik/namecase.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
+[ico-insight]: https://img.shields.io/sensiolabs/i/660fea1e-d105-4064-9caa-f47e8a282f2a.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
 [link-travis]: https://travis-ci.org/tamtamchik/namecase
@@ -111,3 +113,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/tamtamchik/namecase
 [link-author]: https://github.com/tamtamchik
 [link-contributors]: ../../contributors
+[link-insight]: https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a
