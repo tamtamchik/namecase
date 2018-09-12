@@ -62,6 +62,8 @@ class Formatter
      */
     public static function nameCase($string = '', array $options = [])
     {
+        if ($string == '') return $string;
+
         self::$options = array_merge(self::$options, $options);
 
         // Do not do anything if string is mixed and lazy option is true.

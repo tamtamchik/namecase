@@ -60,4 +60,10 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($name, $formatter->nameCase(mb_strtolower($name)));
         }
     }
+
+    /** Test empty string */
+    public function testEmptyString()
+    {
+        $this->assertEquals("", str_name_case(""));
+    }
 }
