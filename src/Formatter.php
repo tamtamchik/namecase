@@ -5,15 +5,8 @@
  */
 class Formatter
 {
-    // Default options.
-    private static $options = [
-        'lazy'    => true,
-        'irish'   => true,
-        'spanish' => true,
-    ];
-
     // Irish exceptions.
-    private static $exceptions = [
+    private const EXCEPTIONS = [
         '\bMacEdo'     => 'Macedo',
         '\bMacEvicius' => 'Macevicius',
         '\bMacHado'    => 'Machado',
@@ -30,7 +23,7 @@ class Formatter
     ];
 
     // General replacements.
-    private static $replacements = [
+    private const REPLACEMENTS = [
         '\bAl(?=\s+\w)'         => 'al',        // al Arabic or forename Al.
         '\b(Bin|Binti|Binte)\b' => 'bin',       // bin, binti, binte Arabic
         '\bAp\b'                => 'ap',        // ap Welsh.
@@ -47,10 +40,17 @@ class Formatter
     ];
 
     // Spanish conjunctions.
-    private static $conjunctions = ["Y", "E", "I"];
+    private const CONJUNCTIONS = ["Y", "E", "I"];
 
     // Roman letters regexp.
-    private static $romanRegex = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
+    private const ROMAN_REGEX = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
+
+    // Default options.
+    private static $options = [
+        'lazy'    => true,
+        'irish'   => true,
+        'spanish' => true,
+    ];
 
     /**
      * Main function for NameCase.
@@ -60,7 +60,7 @@ class Formatter
      *
      * @return string
      */
-    public static function nameCase($string = '', array $options = [])
+    public static function nameCase(string $string = '', array $options = []): string
     {
         if ($string == '') return $string;
 
@@ -74,7 +74,7 @@ class Formatter
         $string = self::updateIrish($string);
 
         // Fixes for "son (daughter) of" etc
-        foreach (self::$replacements as $pattern => $replacement) {
+        foreach (self::REPLACEMENTS as $pattern => $replacement) {
             $string = mb_ereg_replace($pattern, $replacement, $string);
         }
 
@@ -91,7 +91,7 @@ class Formatter
      *
      * @return string
      */
-    private static function capitalize($string)
+    private static function capitalize(string $string): string
     {
         $string = mb_strtolower($string);
 
@@ -114,7 +114,7 @@ class Formatter
      *
      * @return bool
      */
-    private static function skipMixed($string)
+    private static function skipMixed(string $string): bool
     {
         $firstLetterLower = $string[0] == mb_strtolower($string[0]);
         $allLowerOrUpper  = (mb_strtolower($string) == $string || mb_strtoupper($string) == $string);
@@ -129,7 +129,7 @@ class Formatter
      *
      * @return string
      */
-    private static function updateIrish($string)
+    private static function updateIrish(string $string): string
     {
         if ( ! self::$options['irish']) return $string;
 
@@ -147,11 +147,11 @@ class Formatter
      *
      * @return string
      */
-    private static function fixConjunction($string)
+    private static function fixConjunction(string $string): string
     {
         if ( ! self::$options['spanish']) return $string;
 
-        foreach (self::$conjunctions as $conjunction) {
+        foreach (self::CONJUNCTIONS as $conjunction) {
             $string = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $string);
         }
 
@@ -165,9 +165,9 @@ class Formatter
      *
      * @return string
      */
-    private static function updateRoman($string)
+    private static function updateRoman(string $string): string
     {
-        return mb_ereg_replace_callback(self::$romanRegex, function ($matches) {
+        return mb_ereg_replace_callback(self::ROMAN_REGEX, function ($matches) {
             return mb_strtoupper($matches[0]);
         }, $string);
     }
@@ -179,14 +179,14 @@ class Formatter
      *
      * @return string
      */
-    private static function updateMac($string)
+    private static function updateMac(string $string): string
     {
         $string = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
             return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
         }, $string);
 
         // Now fix "Mac" exceptions
-        foreach (self::$exceptions as $pattern => $replacement) {
+        foreach (self::EXCEPTIONS as $pattern => $replacement) {
             $string = mb_ereg_replace($pattern, $replacement, $string);
         }
 
