@@ -19,7 +19,7 @@ class NameCaseTest extends \PHPUnit_Framework_TestCase
         "ben Gurion", "Ben",
         "da Vinci",
         "di Caprio", "du Pont", "de Legate",
-        "del Crond", "der Sind", "van der Post", "van den Thillart",
+        "del Crond", "der Sind", "van der Post", "van den Thillart", "ter Zanden", "ten Brink",
         "von Trapp", "la Poisson", "le Figaro",
         "Mack Knife", "Dougal MacDonald",
         "Ruiz y Picasso", "Dato e Iradier", "Mas i Gavarró",
