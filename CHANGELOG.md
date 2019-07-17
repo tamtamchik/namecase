@@ -4,19 +4,28 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## 2.0.0-alpha - 2019-07-17
+## 2.0.0 - 2019-07-17
 
-### Breaking changes:
+### Breaking changes
+
 * Dropped support for `PHP < 7.2`
 * Dropped support for global function `str_name_case`
 * `spanish` option is now `false` by default.
 
-## Added
-* Constructor now supports options.
-* Added `roman` option.
-* Added `postnominal` option.
-* Added `hebrew` option.
-* Extended Irish `Mac` exceptions. 
+### Added
+* Post-nominals detection. 
+
+* Constructor now supports `options` parameter.
+* Added options:
+  - `lazy` – Default: **true**. Do not do anything if the string is already mixed case and the lazy option is `true`.
+  - `irish` – Default: **true**. Correct `Mac`.
+  - `spanish` – Default: **false**. Corrects `el, la` and Spanish conjunctions.
+  - `roman` – Default: **true**. Corrects roman numbers.
+  - `hebrew` – Default: **true**. Corrects `ben, bat`.
+  - `postnominal` – Default: **true**. Corrects post-nominals.
+
+### Updated
+* New irish `Mac` exceptions. 
 
 ## 1.0.5 - 2019-07-16
 
