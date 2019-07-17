@@ -53,16 +53,6 @@ class OptionsTest extends TestCase
         $this->assertEquals('Na LI', Formatter::nameCase(mb_strtolower('Na Li')));
     }
 
-    /** Test `postnominal` option */
-    public function testPostnominal ()
-    {
-        Formatter::setOptions(['postnominal' => false]);
-        $this->assertEquals('Tam Phd', Formatter::nameCase(mb_strtolower('Tam PHD')));
-
-        Formatter::setOptions(['postnominal' => true]);
-        $this->assertEquals('Tam PhD', Formatter::nameCase(mb_strtolower('Tam PHD')));
-    }
-
     /** Test `hebrew` option */
     public function testHebrew ()
     {
@@ -73,5 +63,15 @@ class OptionsTest extends TestCase
         Formatter::setOptions(['hebrew' => true]);
         $this->assertEquals('Aharon ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon BEN Amram Ha-Kohein')));
         $this->assertEquals('ben Gurion', Formatter::nameCase(mb_strtolower('Ben Gurion')));
+    }
+
+    /** Test `postnominal` option */
+    public function testPostnominal ()
+    {
+        Formatter::setOptions(['postnominal' => false]);
+        $this->assertEquals('Tam Phd', Formatter::nameCase(mb_strtolower('Tam PHD')));
+
+        Formatter::setOptions(['postnominal' => true]);
+        $this->assertEquals('Tam PhD', Formatter::nameCase(mb_strtolower('Tam PHD')));
     }
 }

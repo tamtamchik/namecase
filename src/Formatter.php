@@ -151,7 +151,6 @@ class Formatter
 
         // Capitalize
         $name = self::capitalize($name);
-        $name = self::updateIrish($name);
 
         // General fixes
         $replacements = self::REPLACEMENTS;
@@ -167,6 +166,11 @@ class Formatter
             $name = mb_ereg_replace($pattern, $replacement, $name);
         }
 
+        return self::processOptions($name);
+    }
+
+    private static function processOptions (string $name): string
+    {
         if (self::$options['roman']) {
             $name = self::updateRoman($name);
         }
@@ -201,6 +205,8 @@ class Formatter
         $name = mb_ereg_replace_callback('\'\w\b', function ($matches) {
             return mb_strtolower($matches[0]);
         }, $name);
+
+        $name = self::updateIrish($name);
 
         return $name;
     }
@@ -300,7 +306,7 @@ class Formatter
     private static function fixPostNominal (string $name): string
     {
         foreach (self::POST_NOMINALS as $postnominal) {
-            $name = mb_ereg_replace('\b' . $postnominal . '$', $postnominal, $name, 'ix');
+            $name = mb_ereg_replace('\b' . $postnominal . '\b', $postnominal, $name, 'ix');
         }
         return $name;
     }
