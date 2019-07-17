@@ -18,8 +18,8 @@ Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della
 
 It correctly deals with names which contain apostrophes and hyphens too.
 
-> **Warning!** This readme is for version 2.0.x.  
-> If you need PHP 5 compatible version, please use 1.0.x! [README](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
+> **Warning!** This README.md is for version 2.0.x.  
+> If you need PHP 5 compatible version, please use 1.0.x! [README.md](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
 
 ## Install
 
