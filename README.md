@@ -8,9 +8,9 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabsInsight][ico-insight]][link-insight]
 
-Forenames and surnames are often stored either wholly in UPPERCASE or wholly in lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are normally stored separately if they do appear in a single string, whitespace separated, NameCase deals correctly with them.  
+Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are typically stored separately if they do appear in a single string, whitespace-separated, NameCase deals correctly with them.  
 
-Currently correctly name cases names which include any of the following:  
+Currently NameCase correctly name cases names which include any of the following:  
 
 ```
 Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
@@ -84,7 +84,7 @@ Formatter::nameCase("VAN DYKE", ['lazy' = false])
 ## Global function
 
 This package used to have global function `str_name_case`. Now it does not have it anymore.
-But, if you still need to have it, just use this snippet.
+But, if you still need to have it, use this snippet.
 
 ``` php
 <?php
@@ -109,7 +109,7 @@ if ( ! function_exists('str_name_case')) {
 
 ```
 
-## Change log
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -126,11 +126,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details
 
 ## Security
 
-If you discover any security related issues, please email <yuri.tam.tkachenko@gmail.com> instead of using the issue tracker.
+If you discover any security-related issues, please email <yuri.tam.tkachenko@gmail.com> instead of using the issue tracker.
 
 ## Acknowledgements
 
-This library is a port of the [Perl library](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19), and owes most of its functionality to the Perl version by Mark Summerfield.  
+This library is a port of the [Perl library](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19) and owes most of its functionality to the Perl version by Mark Summerfield.  
 I also used some solutions from [Ruby version](https://github.com/tenderlove/namecase) by Aaron Patterson.  
 Any bugs in the PHP port are my fault.
 
