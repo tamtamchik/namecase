@@ -67,6 +67,9 @@ $formatter->setOptions([
     'lazy' = false, 
     'postnominal' => false
 ])
+
+// Or even
+Formatter::nameCase("VAN DYKE", ['lazy' = false])
 ```
 
 ## Options
@@ -77,6 +80,34 @@ $formatter->setOptions([
 * `roman` – Default: `true`. Correct roman numbers.
 * `hebrew` – Default: `true`. Correct `ben, bat`.
 * `postnominal` – Default: `true`. Correct post-nominal e.g. `PhD`.
+
+## Global function
+
+This package used to have global function `str_name_case`. Now it does not have it anymore.
+But, if you still need to have it, just use this snippet.
+
+``` php
+<?php
+
+use Tamtamchik\NameCase\Formatter;
+
+if ( ! function_exists('str_name_case')) {
+
+    /**
+     * Wrapper for NameCase object to be used as global function.
+     *
+     * @param string $string  - string to NameCase.
+     * @param array  $options - options for NameCase.
+     *
+     * @return string
+     */
+    function str_name_case($string, $options = [])
+    {
+        return Formatter::nameCase($string, $options);
+    }
+}
+
+```
 
 ## Change log
 
