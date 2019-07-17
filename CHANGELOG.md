@@ -4,6 +4,11 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 1.0.5 - 2019-07-16
+
+### Added
+- Dutch: `ter/ten` (thx, @MagicLegend)
+
 ## 1.0.4 - 2019-05-24
 
 ### Fixed
