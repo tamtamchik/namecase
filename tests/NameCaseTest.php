@@ -6,13 +6,8 @@ use Tamtamchik\NameCase\Formatter;
 final class NameCaseTest extends TestCase
 {
     private $names = [
-        "Keith", "Yuri's", "Leigh-Williams", "McCarthy",
-        // Mac exceptions
-        "Machin", "Machlin", "Machar",
-        "Mackle", "Macklin", "Mackie",
-        "Macquarie", "Machado", "Macevicius",
-        "Maciulis", "Macias", "MacMurdo",
         // General
+        "Keith", "Yuri's", "Leigh-Williams", "McCarthy",
         "O'Callaghan", "St. John", "von Streit",
         "van Dyke", "Van", "ap Llwyd Dafydd",
         "al Fahd", "Al",
@@ -20,22 +15,26 @@ final class NameCaseTest extends TestCase
         "ben Gurion", "Ben",
         "da Vinci",
         "di Caprio", "du Pont", "de Legate",
-        "del Crond", "der Sind", "van der Post", "van den Thillart", "ter Zanden", "ten Brink",
+        "del Crond", "der Sind", "van der Post", "van den Thillart",
+        "ter Zanden", "ten Brink",
         "von Trapp", "la Poisson", "le Figaro",
         "Mack Knife", "Dougal MacDonald",
-        "Ruiz y Picasso", "Dato e Iradier", "Mas i Gavarró",
-        // Roman numerals
-        "Henry VIII", "Louis III", "Louis XIV",
-        "Charles II", "Fred XLIX", "Yusof bin Ishak",
+        "Yusof bin Ishak",
     ];
 
-    /** Test base functionality. */
-    public function testNameCase()
-    {
-        foreach ($this->names as $name) {
-            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
-        }
-    }
+    private $macNames = [
+        // Mac exceptions
+        "Machin", "Machlin", "Machar",
+        "Mackle", "Macklin", "Mackie",
+        "Macquarie", "Machado", "Macevicius",
+        "Maciulis", "Macias", "MacMurdo",
+    ];
+
+    private $romanNames = [
+        // Roman numerals
+        "Henry VIII", "Louis III", "Louis XIV",
+        "Charles II", "Fred XLIX",
+    ];
 
     /** Test base UTF-8 support. */
     public function testInternationalization()

@@ -13,12 +13,13 @@ Forenames and surnames are often stored either wholly in UPPERCASE or wholly in 
 Currently correctly name cases names which include any of the following:  
 
 ```
-Mc, Mac, al, el, ap, da, de, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
+Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
 ```
 
 It correctly deals with names which contain apostrophes and hyphens too.
 
-> **Warning!** This readme is for version 2.0.x. If you need PHP 5 compatible version, please use 1.0.x! [README](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md)
+> **Warning!** This readme is for version 2.0.x.  
+> If you need PHP 5 compatible version, please use 1.0.x! [README](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md)
 
 ## Install
 
@@ -47,7 +48,35 @@ Formatter::nameCase("VAN DYKE");            // => van Dyke
 // Or as an instance
 $formatter = new Formatter();
 $formatter->nameCase("LOUIS XIV");          // => Louis XIV
+
+// Passing options
+Formatter::setOptions([
+  'lazy'        => true,
+  'irish'       => true,
+  'spanish'     => false,
+  'roman'       => true,
+  'hebrew'      => true,
+  'postnominal' => true,
+]);
+
+// Or
+$formatter = new Formatter(['spanish' => true]);
+
+// Or 
+$formatter->setOptions([
+    'lazy' = false, 
+    'postnominal' => false
+])
 ```
+
+## Options
+
+* `lazy` – Default: `true`. Do not do anything if string is already mixed case and lazy option is `true`.
+* `irish` – Default: `true`. Correct "Mac" exceptions.
+* `spanish` – Default: `false`. Correct `el, la` and spanish conjunctions.
+* `roman` – Default: `true`. Correct roman numbers.
+* `hebrew` – Default: `true`. Correct `ben, bat`.
+* `postnominal` – Default: `true`. Correct post-nominal e.g. `PhD`.
 
 ## Change log
 
@@ -79,7 +108,7 @@ Any bugs in the PHP port are my fault.
 Original PERL `Lingua::EN::NameCase` Version:
 
 - Copyright &copy; Mark Summerfield 1998-2014. All Rights Reserved.
-- Copyright &copy; Barbie 2014-2015. All Rights Reserved.
+- Copyright &copy; Barbie 2014-2019. All Rights Reserved.
 
 Ruby Version:
 

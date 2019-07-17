@@ -7,8 +7,16 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## 2.0.0-alpha - 2019-07-17
 
 ### Breaking changes:
-* Drop support for `PHP < 7.2`
-* Drop support for global function `str_name_case`
+* Dropped support for `PHP < 7.2`
+* Dropped support for global function `str_name_case`
+* `spanish` option is now `false` by default.
+
+## Added
+* Constructor now supports options.
+* Added `roman` option.
+* Added `postnominal` option.
+* Added `hebrew` option.
+* Extended Irish `Mac` exceptions. 
 
 ## 1.0.5 - 2019-07-16
 
