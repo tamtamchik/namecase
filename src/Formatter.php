@@ -35,7 +35,7 @@ class Formatter
         '\bEl\b'                => 'el',        // el Greek or El Spanish.
         '\bLa\b'                => 'la',        // la French or La Spanish.
         '\bL([eo])\b'           => 'l\1',       // lo Italian; le French.
-        '\bTe([rn])'            => 'te\1',      // ten/ter Dutch/Flemish
+        '\bTe([rn])'            => 'te\1',      // ten, ter Dutch/Flemish
         '\bVan(?=\s+\w)'        => 'van',       // van German or forename Van.
         '\bVon\b'               => 'von',       // von Dutch/Flemish
     ];

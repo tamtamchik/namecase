@@ -4,6 +4,12 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2.0.0-alpha - 2019-07-17
+
+### Breaking changes:
+* Drop support for `PHP < 7.2`
+* Drop support for global function `str_name_case`
+
 ## 1.0.5 - 2019-07-16
 
 ### Added

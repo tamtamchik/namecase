@@ -33,7 +33,7 @@ final class NameCaseTest extends TestCase
     public function testNameCase()
     {
         foreach ($this->names as $name) {
-            $this->assertEquals($name, str_name_case(mb_strtolower($name)));
+            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
         }
     }
 
@@ -41,7 +41,7 @@ final class NameCaseTest extends TestCase
     public function testInternationalization()
     {
         $properCased = 'Iñtërnâtiônàlizætiøn';
-        $this->assertEquals($properCased, str_name_case(mb_strtolower($properCased)));
+        $this->assertEquals($properCased, Formatter::nameCase(mb_strtolower($properCased)));
     }
 
     /** Test static call. */
@@ -65,6 +65,6 @@ final class NameCaseTest extends TestCase
     /** Test empty string. */
     public function testEmptyString()
     {
-        $this->assertEquals("", str_name_case(""));
+        $this->assertEquals("", Formatter::nameCase(""));
     }
 }

@@ -18,7 +18,7 @@ Mc, Mac, al, el, ap, da, de, delle, della, di, du, del, der, den, ten, ter, la, 
 
 It correctly deals with names which contain apostrophes and hyphens too.
 
-> **Warning!** This library contains global `str_name_case` function, that potentially can break your function with this name. Now you are warned!
+> **Warning!** This readme is for version 2.0.x. If you need PHP 5 compatible version, please use 1.0.x! [README](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md)
 
 ## Install
 
@@ -27,30 +27,26 @@ Via Composer
 ``` bash
 $ composer require tamtamchik/namecase
 ```
-> **Warning!** For PHP < 5.6, please be sure to setup UTF-8 as defaut encoding in your `php.ini`  
-`mbstring.internal_encoding = UTF-8;`
 
 ## Usage
 
 ``` php
-// As global function
-str_name_case("KEITH");               // => Keith
-str_name_case("LEIGH-WILLIAMS");      // => Leigh-Williams
-str_name_case("MCCARTHY");            // => McCarthy
-str_name_case("O'CALLAGHAN");         // => O'Callaghan
-str_name_case("ST. JOHN");            // => St. John
-str_name_case("VON STREIT");          // => von Streit
-str_name_case("AP LLWYD DAFYDD");     // => ap Llwyd Dafydd
-str_name_case("HENRY VIII");          // => Henry VIII
-
 use \Tamtamchik\NameCase\Formatter;
 
-// As static call
-Formatter::nameCase("VAN DYKE");      // => van Dyke
+// As a static call
+Formatter::nameCase("KEITH");               // => Keith
+Formatter::nameCase("LEIGH-WILLIAMS");      // => Leigh-Williams
+Formatter::nameCase("MCCARTHY");            // => McCarthy
+Formatter::nameCase("O'CALLAGHAN");         // => O'Callaghan
+Formatter::nameCase("ST. JOHN");            // => St. John
+Formatter::nameCase("VON STREIT");          // => von Streit
+Formatter::nameCase("AP LLWYD DAFYDD");     // => ap Llwyd Dafydd
+Formatter::nameCase("HENRY VIII");          // => Henry VIII
+Formatter::nameCase("VAN DYKE");            // => van Dyke
 
-// As instance
+// Or as an instance
 $formatter = new Formatter();
-$formatter->nameCase("LOUIS XIV");    // => Louis XIV
+$formatter->nameCase("LOUIS XIV");          // => Louis XIV
 ```
 
 ## Change log

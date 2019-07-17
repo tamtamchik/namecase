@@ -29,10 +29,7 @@
     "autoload": {
         "psr-4": {
             "Tamtamchik\\NameCase\\": "src"
-        },
-        "files": [
-            "src/function.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
