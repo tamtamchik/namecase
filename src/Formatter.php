@@ -117,7 +117,7 @@ class Formatter
      *
      * @param array $options
      */
-    public function __construct ($options = [])
+    public function __construct($options = [])
     {
         $this->setOptions($options);
     }
@@ -127,7 +127,7 @@ class Formatter
      *
      * @param array $options
      */
-    public static function setOptions ($options)
+    public static function setOptions($options)
     {
         self::$options = array_merge(self::$options, $options);
     }
@@ -140,11 +140,11 @@ class Formatter
      *
      * @return string
      */
-    public static function nameCase ($name = '', array $options = []): string
+    public static function nameCase($name = '', array $options = []): string
     {
         if ($name == '') return $name;
 
-        self::$options = array_merge(self::$options, $options);
+        self::setOptions($options);
 
         // Do not do anything if string is mixed and lazy option is true.
         if (self::$options['lazy'] && self::skipMixed($name)) return $name;
@@ -152,24 +152,14 @@ class Formatter
         // Capitalize
         $name = self::capitalize($name);
 
-        // General fixes
-        $replacements = self::REPLACEMENTS;
-        if ( ! self::$options['spanish']) {
-            $replacements = array_merge($replacements, self::SPANISH);
-        }
-
-        if (self::$options['hebrew']) {
-            $replacements = array_merge($replacements, self::HEBREW);
-        }
-
-        foreach ($replacements as $pattern => $replacement) {
+        foreach (self::getReplacements() as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
         }
 
         return self::processOptions($name);
     }
 
-    private static function processOptions (string $name): string
+    private static function processOptions(string $name): string
     {
         if (self::$options['roman']) {
             $name = self::updateRoman($name);
@@ -193,7 +183,7 @@ class Formatter
      *
      * @return string
      */
-    private static function capitalize (string $name): string
+    private static function capitalize(string $name): string
     {
         $name = mb_strtolower($name);
 
@@ -212,13 +202,33 @@ class Formatter
     }
 
     /**
+     * Define required replacements.
+     *
+     * @return array
+     */
+    private static function getReplacements(): array
+    {
+        // General fixes
+        $replacements = self::REPLACEMENTS;
+        if ( ! self::$options['spanish']) {
+            $replacements = array_merge($replacements, self::SPANISH);
+        }
+
+        if (self::$options['hebrew']) {
+            $replacements = array_merge($replacements, self::HEBREW);
+        }
+
+        return $replacements;
+    }
+
+    /**
      * Skip if string is mixed case.
      *
      * @param string $name
      *
      * @return bool
      */
-    private static function skipMixed (string $name): bool
+    private static function skipMixed(string $name): bool
     {
         $firstLetterLower = $name[0] == mb_strtolower($name[0]);
         $allLowerOrUpper = (mb_strtolower($name) == $name || mb_strtoupper($name) == $name);
@@ -233,7 +243,7 @@ class Formatter
      *
      * @return string
      */
-    private static function updateIrish (string $name): string
+    private static function updateIrish(string $name): string
     {
         if ( ! self::$options['irish']) return $name;
 
@@ -254,7 +264,7 @@ class Formatter
      *
      * @return string
      */
-    private static function updateRoman (string $name): string
+    private static function updateRoman(string $name): string
     {
         return mb_ereg_replace_callback(self::ROMAN_REGEX, function ($matches) {
             return mb_strtoupper($matches[0]);
@@ -268,7 +278,7 @@ class Formatter
      *
      * @return string
      */
-    private static function updateMac (string $name): string
+    private static function updateMac(string $name): string
     {
         $name = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
             return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
@@ -289,7 +299,7 @@ class Formatter
      *
      * @return string
      */
-    private static function fixConjunction (string $name): string
+    private static function fixConjunction(string $name): string
     {
         foreach (self::CONJUNCTIONS as $conjunction) {
             $name = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $name);
@@ -303,7 +313,7 @@ class Formatter
      * @param string $name
      * @return string
      */
-    private static function fixPostNominal (string $name): string
+    private static function fixPostNominal(string $name): string
     {
         foreach (self::POST_NOMINALS as $postnominal) {
             $name = mb_ereg_replace('\b' . $postnominal . '\b', $postnominal, $name, 'ix');

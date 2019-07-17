@@ -6,7 +6,7 @@ use Tamtamchik\NameCase\Formatter;
 class OptionsTest extends TestCase
 {
     /** Test `lazy` option */
-    public function testLazy ()
+    public function testLazy()
     {
         $this->assertEquals('Dougal MACDonald', Formatter::nameCase('Dougal MACDonald'));
         Formatter::setOptions(['lazy' => false]);
@@ -16,7 +16,7 @@ class OptionsTest extends TestCase
     }
 
     /** Test `irish` option */
-    public function testIrish ()
+    public function testIrish()
     {
         $this->assertEquals('Macmurdo', Formatter::nameCase('Macmurdo'));
         Formatter::setOptions(['irish' => false]);
@@ -26,7 +26,7 @@ class OptionsTest extends TestCase
     }
 
     /** Test `spanish` option */
-    public function testSpanish ()
+    public function testSpanish()
     {
         $names = ["Ruiz y Picasso", "Dato e Iradier", "Mas i Gavarró"];
         $formatter = new Formatter(['spanish' => true]);
@@ -44,7 +44,7 @@ class OptionsTest extends TestCase
     }
 
     /** Test `roman` option */
-    public function testRoman ()
+    public function testRoman()
     {
         Formatter::setOptions(['roman' => false]);
         $this->assertEquals('Na Li', Formatter::nameCase(mb_strtolower('Na Li')));
@@ -54,7 +54,7 @@ class OptionsTest extends TestCase
     }
 
     /** Test `hebrew` option */
-    public function testHebrew ()
+    public function testHebrew()
     {
         Formatter::setOptions(['hebrew' => false]);
         $this->assertEquals('Aharon Ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon BEN Amram Ha-Kohein')));
@@ -66,7 +66,7 @@ class OptionsTest extends TestCase
     }
 
     /** Test `postnominal` option */
-    public function testPostnominal ()
+    public function testPostnominal()
     {
         Formatter::setOptions(['postnominal' => false]);
         $this->assertEquals('Tam Phd', Formatter::nameCase(mb_strtolower('Tam PHD')));
