@@ -4,6 +4,12 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2.1.0 – 2020-02-07
+
+### Added
+
+* `excludePostNominals` method to add excluded values (#7).
+
 ## 2.0.1 – 2020-02-07
 
 ### Added

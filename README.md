@@ -25,13 +25,13 @@ It correctly deals with names which contain apostrophes and hyphens too.
 
 Via Composer
 
-``` bash
+```bash
 $ composer require tamtamchik/namecase
 ```
 
 ## Usage
 
-``` php
+```php
 use \Tamtamchik\NameCase\Formatter;
 
 // As a static call
@@ -66,10 +66,10 @@ $formatter = new Formatter(['spanish' => true]);
 $formatter->setOptions([
     'lazy' = false, 
     'postnominal' => false
-])
+]);
 
 // Or even
-Formatter::nameCase("VAN DYKE", ['lazy' = false])
+Formatter::nameCase("VAN DYKE", ['lazy' = false]);
 ```
 
 ## Options
@@ -86,7 +86,7 @@ Formatter::nameCase("VAN DYKE", ['lazy' = false])
 This package used to have global function `str_name_case`. Now it does not have it anymore.
 But, if you still need to have it, use this snippet.
 
-``` php
+```php
 <?php
 
 use Tamtamchik\NameCase\Formatter;
@@ -109,13 +109,25 @@ if ( ! function_exists('str_name_case')) {
 
 ```
 
+## Exclude Post-Nominals
+
+```php
+<?php
+
+use Tamtamchik\NameCase\Formatter;
+
+Formatter::excludePostNominals('MOst');
+
+Formatter::nameCase('ČERNÝ MOST');
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Testing & Demo
 
-``` bash
+```bash
 $ composer tests
 $ composer demo
 ```
