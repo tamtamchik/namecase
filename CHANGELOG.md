@@ -45,10 +45,16 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Updated
 * New irish `Mac` exceptions. 
 
+## 1.0.6 - 2019-05-24
+
+### Fixed
+
+* Fix missing end word boundary on `ten`, `ter` Dutch/Flemish (#9).
+
 ## 1.0.5 - 2019-07-16
 
 ### Added
-- Dutch: `ter/ten` (thx, @MagicLegend)
+- Dutch: `ter/ten` (#6) thx, @MagicLegend
 
 ## 1.0.4 - 2019-05-24
 
