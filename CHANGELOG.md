@@ -4,6 +4,12 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2.1.1 – 2020-03-05
+
+### Added
+
+* Fix missing end word boundary on `ten`, `ter` Dutch/Flemish (#9).
+
 ## 2.1.0 – 2020-02-07
 
 ### Added
