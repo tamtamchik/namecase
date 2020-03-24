@@ -22,6 +22,20 @@ final class NameCaseTest extends TestCase
         "Yusof bin Ishak",
     ];
 
+    private $macNames = [
+         // Mac exceptions
+         "Machin", "Machlin", "Machar",
+         "Mackle", "Macklin", "Mackie",
+         "Macquarie", "Machado", "Macevicius",
+         "Maciulis", "Macias", "MacMurdo",
+     ];
+
+     private $romanNames = [
+         // Roman numerals
+         "Henry VIII", "Louis III", "Louis XIV",
+         "Charles II", "Fred XLIX",
+     ];
+
     /** Test base UTF-8 support. */
     public function testInternationalization()
     {
@@ -51,5 +65,21 @@ final class NameCaseTest extends TestCase
     public function testEmptyString()
     {
         $this->assertEquals("", Formatter::nameCase(""));
+    }
+
+    /** Test irish exceptions. */
+    public function testIrishExceptions()
+    {
+        foreach ($this->macNames as $name) {
+            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
+        }
+    }
+
+    /** Test roman numerals. */
+    public function testRomanNumerals()
+    {
+        foreach ($this->romanNames as $name) {
+            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
+        }
     }
 }
