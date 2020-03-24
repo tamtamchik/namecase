@@ -22,20 +22,6 @@ final class NameCaseTest extends TestCase
         "Yusof bin Ishak",
     ];
 
-    private $macNames = [
-        // Mac exceptions
-        "Machin", "Machlin", "Machar",
-        "Mackle", "Macklin", "Mackie",
-        "Macquarie", "Machado", "Macevicius",
-        "Maciulis", "Macias", "MacMurdo",
-    ];
-
-    private $romanNames = [
-        // Roman numerals
-        "Henry VIII", "Louis III", "Louis XIV",
-        "Charles II", "Fred XLIX",
-    ];
-
     /** Test base UTF-8 support. */
     public function testInternationalization()
     {
