@@ -82,4 +82,11 @@ final class NameCaseTest extends TestCase
             $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
         }
     }
+
+    /** Test initials */
+    public function testInitials()
+    {
+        $this->assertEquals('J. F. Kennedy', Formatter::nameCase(mb_strtolower('J. F. Kennedy')));
+        $this->assertEquals('J.F. Kennedy', Formatter::nameCase(mb_strtolower('J.F. Kennedy')));
+    }
 }
