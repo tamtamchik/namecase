@@ -1,5 +1,6 @@
 # NameCase
 
+[![Buy Me A Coffee][ico-coffee]][link-coffee]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
@@ -7,7 +8,6 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabsInsight][ico-insight]][link-insight]
-[![Buy Me A Coffee][ico-coffee]][link-coffee]
 
 Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are typically stored separately if they do appear in a single string, whitespace-separated, NameCase deals correctly with them.  
 
