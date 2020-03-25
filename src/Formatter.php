@@ -123,7 +123,7 @@ class Formatter
      *
      * @param array $options
      */
-    public static function setOptions($options)
+    public static function setOptions($options): void
     {
         self::$options = array_merge(self::$options, $options);
     }
@@ -132,7 +132,7 @@ class Formatter
      * Global post-nominals exclusions setter.
      *
      * @param array|string $values
-     * @return boolean
+     * @return boolean|void
      */
     public static function excludePostNominals($values)
     {
@@ -169,6 +169,13 @@ class Formatter
         return self::processOptions($name);
     }
 
+    /**
+     * Process options with given name
+     *
+     * @param string $name
+     *
+     * @return string
+     */
     private static function processOptions(string $name): string
     {
         if (self::$options['roman']) {
