@@ -37,14 +37,14 @@ final class NameCaseTest extends TestCase
      ];
 
     /** Test base UTF-8 support. */
-    public function testInternationalization()
+    public function testInternationalization(): void
     {
         $properCased = 'Iñtërnâtiônàlizætiøn';
         $this->assertEquals($properCased, Formatter::nameCase(mb_strtolower($properCased)));
     }
 
     /** Test static call. */
-    public function testStatic()
+    public function testStatic(): void
     {
         foreach ($this->names as $name) {
             $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
@@ -52,7 +52,7 @@ final class NameCaseTest extends TestCase
     }
 
     /** Test instantiation. */
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $formatter = new Formatter();
 
@@ -62,13 +62,13 @@ final class NameCaseTest extends TestCase
     }
 
     /** Test empty string. */
-    public function testEmptyString()
+    public function testEmptyString(): void
     {
         $this->assertEquals("", Formatter::nameCase(""));
     }
 
     /** Test irish exceptions. */
-    public function testIrishExceptions()
+    public function testIrishExceptions(): void
     {
         foreach ($this->macNames as $name) {
             $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
@@ -76,7 +76,7 @@ final class NameCaseTest extends TestCase
     }
 
     /** Test roman numerals. */
-    public function testRomanNumerals()
+    public function testRomanNumerals(): void
     {
         foreach ($this->romanNames as $name) {
             $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
@@ -84,7 +84,7 @@ final class NameCaseTest extends TestCase
     }
 
     /** Test initials */
-    public function testInitials()
+    public function testInitials(): void
     {
         $this->assertEquals('J. F. Kennedy', Formatter::nameCase(mb_strtolower('J. F. Kennedy')));
         $this->assertEquals('J.F. Kennedy', Formatter::nameCase(mb_strtolower('J.F. Kennedy')));
