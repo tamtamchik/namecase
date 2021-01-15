@@ -14,6 +14,7 @@ echo 'VON STREIT => ' . Formatter::nameCase('VON STREIT') . PHP_EOL;
 echo 'AP LLWYD DAFYDD => ' . Formatter::nameCase('AP LLWYD DAFYDD') . PHP_EOL;
 echo 'HENRY VIII => ' . Formatter::nameCase('HENRY VIII') . PHP_EOL;
 echo 'VAN DYKE => ' . Formatter::nameCase('VAN DYKE') . PHP_EOL;
+echo 'PRINCE PHILIP, DUKE OF EDINBURGH => ' . Formatter::nameCase('PRINCE PHILIP, DUKE OF EDINBURGH') . PHP_EOL;
 
 // As instance
 $formatter = new Formatter();

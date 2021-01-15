@@ -191,4 +191,10 @@ final class NameCaseTest extends TestCase
             $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
         }
     }
+
+    public function testLowerCaseWords(): void
+    {
+        $properCased = "Prince Philip, Duke of Edinburgh";
+        $this->assertEquals($properCased, Formatter::nameCase(mb_strtolower($properCased)));
+    }
 }

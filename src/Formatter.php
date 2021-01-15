@@ -64,7 +64,7 @@ class Formatter
     ];
 
     // Spanish conjunctions.
-    private const CONJUNCTIONS = ["Y", "E", "I"];
+    private const CONJUNCTIONS = ['Y', 'E', 'I'];
 
     // Roman letters regexp.
     private const ROMAN_REGEX = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
@@ -97,6 +97,9 @@ class Formatter
 
     // Excluded post-nominals
     private static $postNominalsExcluded = [];
+
+    // Lowercase words
+    private const LOWER_CASE_WORDS = ['The', 'Of', 'And'];
 
     // Default options.
     private static $options = [
@@ -165,6 +168,8 @@ class Formatter
         foreach (self::getReplacements() as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
         }
+
+        $name = self::correctLowerCaseWords($name);
 
         return self::processOptions($name);
     }
@@ -320,6 +325,21 @@ class Formatter
     {
         foreach (self::CONJUNCTIONS as $conjunction) {
             $name = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $name);
+        }
+        return $name;
+    }
+
+    /**
+     * Correct lower-case words of titles.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    private static function correctLowerCaseWords(string $name): string
+    {
+        foreach (self::LOWER_CASE_WORDS as $lowercase) {
+            $name = mb_ereg_replace('\b' . $lowercase . '\b', mb_strtolower($lowercase), $name);
         }
         return $name;
     }

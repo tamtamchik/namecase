@@ -36,15 +36,16 @@ $ composer require tamtamchik/namecase
 use \Tamtamchik\NameCase\Formatter;
 
 // As a static call
-Formatter::nameCase("KEITH");               // => Keith
-Formatter::nameCase("LEIGH-WILLIAMS");      // => Leigh-Williams
-Formatter::nameCase("MCCARTHY");            // => McCarthy
-Formatter::nameCase("O'CALLAGHAN");         // => O'Callaghan
-Formatter::nameCase("ST. JOHN");            // => St. John
-Formatter::nameCase("VON STREIT");          // => von Streit
-Formatter::nameCase("AP LLWYD DAFYDD");     // => ap Llwyd Dafydd
-Formatter::nameCase("HENRY VIII");          // => Henry VIII
-Formatter::nameCase("VAN DYKE");            // => van Dyke
+Formatter::nameCase("KEITH");                            // => Keith
+Formatter::nameCase("LEIGH-WILLIAMS");                   // => Leigh-Williams
+Formatter::nameCase("MCCARTHY");                         // => McCarthy
+Formatter::nameCase("O'CALLAGHAN");                      // => O'Callaghan
+Formatter::nameCase("ST. JOHN");                         // => St. John
+Formatter::nameCase("VON STREIT");                       // => von Streit
+Formatter::nameCase("AP LLWYD DAFYDD");                  // => ap Llwyd Dafydd
+Formatter::nameCase("HENRY VIII");                       // => Henry VIII
+Formatter::nameCase("VAN DYKE");                         // => van Dyke
+Formatter::nameCase("PRINCE PHILIP, DUKE OF EDINBURGH"); // => Prince Philip, Duke of Edinburgh
 
 // Or as an instance
 $formatter = new Formatter();
