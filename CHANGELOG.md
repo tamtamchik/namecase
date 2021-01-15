@@ -4,6 +4,12 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2.2.0 – 2021-01-15
+
+### Added
+
+* PHP 8 support.
+
 ## 2.1.1 – 2020-03-05
 
 ### Added
