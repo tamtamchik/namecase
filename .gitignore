@@ -1,5 +1,6 @@
-build
+.idea/
+build/
+vendor/
+
 composer.lock
-docs
-vendor
 .phpunit.result.cache

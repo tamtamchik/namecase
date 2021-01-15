@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright (c) 2015 Yuri Tkachenko <yuri.tam.tkachenko@gmail.com>
+Copyright &copy; 2015 Yuri Tkachenko <yuri.tam.tkachenko@gmail.com>
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
