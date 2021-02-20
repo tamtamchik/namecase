@@ -4,11 +4,13 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## next
+## next 
+
+## 2.3.0 – 2021-02-20
 
 ### Added
 
-* Support for lowercase words: The, Of, And [#17](https://github.com/tamtamchik/namecase/issues/17)
+* Support for lowercase words The, Of, And ([#17](https://github.com/tamtamchik/namecase/issues/17)) 
 
 ## 2.2.0 – 2021-01-15
 
