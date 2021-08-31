@@ -178,7 +178,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
-[link-travis]: https://travis-ci.org/tamtamchik/namecase
+[link-travis]: https://app.travis-ci.com/github/tamtamchik/namecase
 [link-scrutinizer]: https://scrutinizer-ci.com/g/tamtamchik/namecase/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/tamtamchik/namecase
 [link-downloads]: https://packagist.org/packages/tamtamchik/namecase
