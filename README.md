@@ -184,5 +184,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/tamtamchik/namecase
 [link-author]: https://github.com/tamtamchik
 [link-contributors]: ../../contributors
-[link-insight]: https://insight.sensiolabs.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a
+[link-insight]: https://insight.symfony.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a
 [link-coffee]: https://www.buymeacoffee.com/tamtamchik
