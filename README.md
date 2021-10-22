@@ -7,7 +7,6 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![SensioLabsInsight][ico-insight]][link-insight]
 
 Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are typically stored separately if they do appear in a single string, whitespace-separated, NameCase deals correctly with them.  
 
@@ -174,7 +173,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/tamtamchik/namecase.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
-[ico-insight]: https://img.shields.io/sensiolabs/i/660fea1e-d105-4064-9caa-f47e8a282f2a.svg?style=flat-square
 [ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
@@ -184,5 +182,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/tamtamchik/namecase
 [link-author]: https://github.com/tamtamchik
 [link-contributors]: ../../contributors
-[link-insight]: https://insight.symfony.com/projects/660fea1e-d105-4064-9caa-f47e8a282f2a
 [link-coffee]: https://www.buymeacoffee.com/tamtamchik
