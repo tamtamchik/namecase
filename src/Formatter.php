@@ -98,6 +98,19 @@ class Formatter
     // Excluded post-nominals
     private static $postNominalsExcluded = [];
 
+    // Most two-letter words with no vowels should be kept in all caps as initials
+    private const INITIAL_NAME_REGEX = '\b(Aj|[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{2})\s';
+    private const INITIAL_NAME_EXCEPTIONS = [
+        'Mr',
+        'Dr',
+        'St',
+        'Jr',
+        'Sr',
+        // FIXME: These collide with POST_NOMINALS
+        // 'Ms',
+        // 'Lt',
+    ];
+
     // Lowercase words
     private const LOWER_CASE_WORDS = ['The', 'Of', 'And'];
 
@@ -168,6 +181,8 @@ class Formatter
         foreach (self::getReplacements() as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
         }
+
+        $name = self::correctInitialNames($name);
 
         $name = self::correctLowerCaseWords($name);
 
@@ -327,6 +342,26 @@ class Formatter
             $name = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $name);
         }
         return $name;
+    }
+
+    /**
+     * Correct capitalization of initial names like JJ and TJ.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    private static function correctInitialNames(string $name): string
+    {
+        return mb_ereg_replace_callback(self::INITIAL_NAME_REGEX, function ($matches) {
+            $match = $matches[0];
+
+            if (in_array($matches[1], self::INITIAL_NAME_EXCEPTIONS)) {
+                return $match;
+            }
+
+            return mb_strtoupper($match);
+        }, $name);
     }
 
     /**

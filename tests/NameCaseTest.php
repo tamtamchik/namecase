@@ -36,6 +36,20 @@ final class NameCaseTest extends TestCase
         "Charles II", "Fred XLIX",
     ];
 
+    private $initialNames = [
+        // Two letter initials names should remain capital with and without periods
+        "JJ Abrams", "JD Salinger", "AJ Michalka",
+        "J. F. Kennedy", "J.F. Kennedy",
+        // Except for some specifics
+        "Mr Smith",
+        "Dr Martin Luther King Jr",
+        "St Patrick",
+        "Martin Luther King Sr",
+        // FIXME: These collide with POST_NOMINALS
+        // "Ms Smith",
+        // "Lt Worf",
+    ];
+
     /** Test numbers. */
     public function testNumbersAreUnaffected(): void
     {
@@ -107,8 +121,9 @@ final class NameCaseTest extends TestCase
     /** Test initials */
     public function testInitials(): void
     {
-        $this->assertEquals('J. F. Kennedy', Formatter::nameCase(mb_strtolower('J. F. Kennedy')));
-        $this->assertEquals('J.F. Kennedy', Formatter::nameCase(mb_strtolower('J.F. Kennedy')));
+        foreach ($this->initialNames as $name) {
+            $this->assertEquals($name, Formatter::nameCase(mb_strtolower($name)));
+        }
     }
 
     private $programmers = [
