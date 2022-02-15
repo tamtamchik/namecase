@@ -168,7 +168,9 @@ class Formatter
      */
     public static function nameCase($name = '', array $options = []): string
     {
-        if ($name == '') return $name;
+        if ($name == '' || $name == NULL) {
+            return $name;
+        }
 
         self::setOptions($options);
 
