@@ -44,6 +44,7 @@ Formatter::nameCase("VON STREIT");                       // => von Streit
 Formatter::nameCase("AP LLWYD DAFYDD");                  // => ap Llwyd Dafydd
 Formatter::nameCase("HENRY VIII");                       // => Henry VIII
 Formatter::nameCase("VAN DYKE");                         // => van Dyke
+Formatter::nameCase("JJ ABRAMS");                        // => JJ Abrams
 Formatter::nameCase("PRINCE PHILIP, DUKE OF EDINBURGH"); // => Prince Philip, Duke of Edinburgh
 
 // Or as an instance
