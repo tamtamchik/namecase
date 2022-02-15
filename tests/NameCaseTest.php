@@ -42,12 +42,11 @@ final class NameCaseTest extends TestCase
         "J. F. Kennedy", "J.F. Kennedy",
         // Except for some specifics
         "Mr Smith",
+        "Ms Smith",
         "Dr Martin Luther King Jr",
         "St Patrick",
         "Martin Luther King Sr",
-        // FIXME: These collide with POST_NOMINALS
-        // "Ms Smith",
-        // "Lt Worf",
+        "Lt Worf",
     ];
 
     /** Test numbers. */
