@@ -202,7 +202,7 @@ class Formatter
         foreach (self::getReplacements() as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
 
-            // XXX: Very difficult to write a test in modern environments
+            // Very difficult to write a test in modern environments
             // @codeCoverageIgnoreStart
             if ( ! is_string($name)) {
                 return $original;
