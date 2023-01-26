@@ -11,6 +11,12 @@ class PostNominalsTest extends TestCase
         $this->assertEquals('Adisa Azapagic MBE Freng Frsc Ficheme', Formatter::nameCase('ADISA AZAPAGIC MBE FRENG FRSC FICHEME'));
     }
 
+    public function testExcludeNull(): void
+    {
+        Formatter::excludePostNominals(null);
+        $this->assertEquals('Černý MOst', Formatter::nameCase('ČERNÝ MOST'));
+    }
+
     /** Test post-nominals exclusion. */
     public function testExcludeString(): void
     {
