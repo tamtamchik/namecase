@@ -8,9 +8,11 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert names into the correct case where possible. Although forenames and surnames are typically stored separately if they do appear in a single string, whitespace-separated, NameCase deals correctly with them.  
+Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert
+names into the correct case where possible. Although forenames and surnames are typically stored separately if they do
+appear in a single string, whitespace-separated, NameCase deals correctly with them.
 
-Currently NameCase correctly name cases names which include any of the following:  
+Currently, NameCase correctly name cases names which include any of the following:
 
 ```
 Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
@@ -19,7 +21,8 @@ Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della
 It correctly deals with names which contain apostrophes and hyphens too.
 
 > **Warning!** This README.md is for version 2.0.x.  
-> If you need PHP 5 compatible version, please use 1.0.x! [README.md](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
+> If you need PHP 5 compatible version, please use
+> 1.0.x! [README.md](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
 
 ## Install
 
@@ -33,6 +36,7 @@ $ composer require tamtamchik/namecase
 
 ```php
 use \Tamtamchik\NameCase\Formatter;
+use function \Tamtamchik\NameCase\str_name_case;
 
 // As a static call
 Formatter::nameCase("KEITH");                            // => Keith
@@ -44,14 +48,15 @@ Formatter::nameCase("VON STREIT");                       // => von Streit
 Formatter::nameCase("AP LLWYD DAFYDD");                  // => ap Llwyd Dafydd
 Formatter::nameCase("HENRY VIII");                       // => Henry VIII
 Formatter::nameCase("VAN DYKE");                         // => van Dyke
-Formatter::nameCase("JJ ABRAMS");                        // => JJ Abrams
-Formatter::nameCase("PRINCE PHILIP, DUKE OF EDINBURGH"); // => Prince Philip, Duke of Edinburgh
 
 // Or as an instance
 $formatter = new Formatter();
-$formatter->nameCase("LOUIS XIV");          // => Louis XIV
+$formatter->nameCase("LOUIS XIV");                       // => Louis XIV
 
-// Passing options
+// Or as a function
+str_name_case("JJ ABRAMS");                              // => JJ Abrams
+
+// Passing options (see below for details)
 Formatter::setOptions([
   'lazy'        => true,
   'irish'       => true,
@@ -72,6 +77,9 @@ $formatter->setOptions([
 
 // Or even
 Formatter::nameCase("VAN DYKE", ['lazy' = false]);
+
+// And for function
+str_name_case("VAN DYKE", ['lazy' = false]);
 ```
 
 ## Options
@@ -82,34 +90,6 @@ Formatter::nameCase("VAN DYKE", ['lazy' = false]);
 * `roman` – Default: `true`. Correct roman numbers.
 * `hebrew` – Default: `true`. Correct `ben, bat`.
 * `postnominal` – Default: `true`. Correct post-nominal e.g. `PhD`.
-
-## Global function
-
-This package used to have global function `str_name_case`. Now it does not have it anymore.
-But, if you still need to have it, use this snippet.
-
-```php
-<?php
-
-use Tamtamchik\NameCase\Formatter;
-
-if ( ! function_exists('str_name_case')) {
-
-    /**
-     * Wrapper for NameCase object to be used as global function.
-     *
-     * @param string $string  - string to NameCase.
-     * @param array  $options - options for NameCase.
-     *
-     * @return string
-     */
-    function str_name_case($string, $options = [])
-    {
-        return Formatter::nameCase($string, $options);
-    }
-}
-
-```
 
 ## Exclude Post-Nominals
 
@@ -140,11 +120,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 ## Security
 
-If you discover any security-related issues, please email <yuri.tam.tkachenko@gmail.com> instead of using the issue tracker.
+If you discover any security-related issues, please email <yuri.tam.tkachenko@gmail.com> instead of using the issue
+tracker.
 
 ## Acknowledgements
 
-This library is a port of the [Perl library](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19) and owes most of its functionality to the Perl version by Mark Summerfield.  
+This library is a port of the [Perl library](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19) and owes most
+of its functionality to the Perl version by Mark Summerfield.  
 I also used some solutions from [Ruby version](https://github.com/tenderlove/namecase) by Aaron Patterson.  
 Any bugs in the PHP port are my fault.
 

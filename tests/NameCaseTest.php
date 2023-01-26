@@ -1,5 +1,6 @@
 <?php namespace Tamtamchik\NameCase\Test;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use Tamtamchik\NameCase\Formatter;
 
@@ -59,7 +60,7 @@ final class NameCaseTest extends TestCase
     /** Test dates. */
     public function testDatesAreUnaffected(): void
     {
-        $properCased = (new \DateTime('now'))->format('Y-m-d H:i:s');
+        $properCased = (new DateTime('now'))->format('Y-m-d H:i:s');
         $this->assertEquals($properCased, Formatter::nameCase(mb_strtolower($properCased)));
     }
 
@@ -67,7 +68,7 @@ final class NameCaseTest extends TestCase
     public function testNullsAreUnaffected(): void
     {
         $properCased = null;
-        $this->assertEquals($properCased, Formatter::nameCase(mb_strtolower($properCased)));
+        $this->assertEquals($properCased, Formatter::nameCase($properCased));
     }
 
     /** Test base UTF-8 support. */
@@ -98,7 +99,7 @@ final class NameCaseTest extends TestCase
     /** Test empty string. */
     public function testEmptyString(): void
     {
-        $this->assertEquals("", Formatter::nameCase(""));
+        $this->assertEquals("", Formatter::nameCase());
     }
 
     /** Test irish exceptions. */
