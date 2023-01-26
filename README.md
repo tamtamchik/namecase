@@ -159,7 +159,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
 [ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
-[ico-insight]: https://img.shields.io/sensiolabs/i/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc.svg?style=flat-square
+[ico-insight]: https://img.shields.io/symfony/i/grade/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
 [link-travis]: https://app.travis-ci.com/github/tamtamchik/namecase
@@ -169,4 +169,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-author]: https://github.com/tamtamchik
 [link-contributors]: ../../contributors
 [link-coffee]: https://www.buymeacoffee.com/tamtamchik
-[link-insight]: https://insight.sensiolabs.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc
+[link-insight]: https://insight.symfony.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc
