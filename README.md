@@ -1,12 +1,12 @@
 # NameCase
 
-[![Buy Me A Coffee][ico-coffee]][link-coffee]
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
+[![SensioLabsInsight][ico-insight]][link-insight]
 
 Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert
 names into the correct case where possible. Although forenames and surnames are typically stored separately if they do
@@ -150,6 +150,8 @@ PHP Version:
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
+[![Buy Me A Coffee][ico-coffee]][link-coffee]
+
 [ico-version]: https://img.shields.io/packagist/v/tamtamchik/namecase.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/tamtamchik/namecase/master.svg?style=flat-square
@@ -157,6 +159,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
 [ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
+[ico-insight]: https://img.shields.io/sensiolabs/i/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
 [link-travis]: https://app.travis-ci.com/github/tamtamchik/namecase
@@ -166,3 +169,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-author]: https://github.com/tamtamchik
 [link-contributors]: ../../contributors
 [link-coffee]: https://www.buymeacoffee.com/tamtamchik
+[link-insight]: https://insight.sensiolabs.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc
