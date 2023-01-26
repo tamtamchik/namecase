@@ -181,14 +181,14 @@ class Formatter
      */
     public static function nameCase(?string $name = '', ?array $options = []): string
     {
-        if ($name == '') {
-            return '';
-        }
+        $name = is_null($name) ? '' : $name;
 
         self::setOptions($options);
 
         // Do not do anything if string is mixed and lazy option is true.
-        if (self::$options['lazy'] && self::skipMixed($name)) return $name;
+        if ( ! self::canBeProcessed($name)) {
+            return $name;
+        }
 
         // Capitalize
         $name = self::capitalize($name);
@@ -198,10 +198,25 @@ class Formatter
         }
 
         $name = self::correctInitialNames($name);
-
         $name = self::correctLowerCaseWords($name);
 
         return self::processOptions($name);
+    }
+
+    /**
+     * Check if string can be processed.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    private static function canBeProcessed(string $name): bool
+    {
+        if ($name != '') {
+            return ! (self::$options['lazy'] && self::skipMixed($name));
+        }
+
+        return false;
     }
 
     /**
