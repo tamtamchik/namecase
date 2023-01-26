@@ -4,7 +4,13 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## next 
+## 3.0.0 - 2023-01-26
+
+**Breaking Change!** Minimum PHP version is now 7.3.
+
+### Added
+
+- Namespaced function `Tamtamchik\NameCase\str_name_case` and tests.
 
 ## 2.3.0 – 2021-02-20
 
