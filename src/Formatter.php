@@ -160,13 +160,18 @@ class Formatter
     /**
      * Global post-nominals exclusions setter.
      *
-     * @param array|string $values
+     * @param array|string|null $values
      * @return boolean|void
      */
     public static function excludePostNominals($values)
     {
-        if (is_string($values)) $values = [$values];
-        if ( ! is_array($values)) return false;
+        if (is_string($values)) {
+            $values = [$values];
+        }
+
+        if ( ! is_array($values)) {
+            return false;
+        }
 
         self::$postNominalsExcluded = array_merge(self::$postNominalsExcluded, $values);
     }
@@ -181,26 +186,30 @@ class Formatter
      */
     public static function nameCase(?string $name = '', ?array $options = []): string
     {
-        $text = (is_null($name) ? '' : $name);
+        $name = is_null($name) ? '' : $name;
 
         self::setOptions($options);
 
         // Do not do anything if string is mixed and lazy option is true.
-        if ( ! self::canBeProcessed($text)) {
-            return $text;
+        if ( ! self::canBeProcessed($name)) {
+            return $name;
         }
+
+        $original = $name;
 
         // Capitalize
-        $text = self::capitalize($text);
-
+        $name = self::capitalize($name);
         foreach (self::getReplacements() as $pattern => $replacement) {
-            $text = mb_ereg_replace($pattern, $replacement, $text);
+            $name = mb_ereg_replace($pattern, $replacement, $name);
+            if ( ! is_string($name)) {
+                return $original;
+            }
         }
 
-        $text = self::correctInitialNames($text);
-        $text = self::correctLowerCaseWords($text);
+        $name = self::correctInitialNames($name);
+        $name = self::correctLowerCaseWords($name);
 
-        return self::processOptions($text);
+        return self::processOptions($name);
     }
 
     /**
