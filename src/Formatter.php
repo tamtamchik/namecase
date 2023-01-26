@@ -181,26 +181,26 @@ class Formatter
      */
     public static function nameCase(?string $name = '', ?array $options = []): string
     {
-        $name = is_null($name) ? '' : $name;
+        $text = (is_null($name) ? '' : $name);
 
         self::setOptions($options);
 
         // Do not do anything if string is mixed and lazy option is true.
-        if ( ! self::canBeProcessed($name)) {
-            return $name;
+        if ( ! self::canBeProcessed($text)) {
+            return $text;
         }
 
         // Capitalize
-        $name = self::capitalize($name);
+        $text = self::capitalize($text);
 
         foreach (self::getReplacements() as $pattern => $replacement) {
-            $name = mb_ereg_replace($pattern, $replacement, $name);
+            $text = mb_ereg_replace($pattern, $replacement, $text);
         }
 
-        $name = self::correctInitialNames($name);
-        $name = self::correctLowerCaseWords($name);
+        $text = self::correctInitialNames($text);
+        $text = self::correctLowerCaseWords($text);
 
-        return self::processOptions($name);
+        return self::processOptions($text);
     }
 
     /**
