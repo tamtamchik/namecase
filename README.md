@@ -9,19 +9,19 @@
 [![SensioLabsInsight][ico-insight]][link-insight]
 
 Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert
-names into the correct case where possible. Although forenames and surnames are typically stored separately if they do
+names into the correct case where possible. Although forenames and surnames are typically stored separately, if they 
 appear in a single string, whitespace-separated, NameCase deals correctly with them.
 
-Currently, NameCase correctly name cases names which include any of the following:
+Currently, NameCase correctly name-cases names which include any of the following:
 
 ```
 Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
 ```
 
-It correctly deals with names which contain apostrophes and hyphens too.
+It correctly deals with names that contain apostrophes and hyphens, too.
 
 > **Warning!** This README.md is for version 3.x.  
-> If you need PHP 5 compatible version, please use
+> If you need a PHP 5 compatible version, please use
 > 1.0.x! [README.md](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
 
 ## Install
@@ -84,10 +84,10 @@ str_name_case("VAN DYKE", ['lazy' = false]);
 
 ## Options
 
-* `lazy` – Default: `true`. Do not do anything if string is already mixed case and lazy option is `true`.
+* `lazy` – Default: `true`. Do not do anything if the string is already mixed case and the lazy option is `true`.
 * `irish` – Default: `true`. Correct "Mac" exceptions.
-* `spanish` – Default: `false`. Correct `el, la` and spanish conjunctions.
-* `roman` – Default: `true`. Correct roman numbers.
+* `spanish` – Default: `false`. Correct `el, la` and Spanish conjunctions.
+* `roman` – Default: `true`. Correct Roman numbers.
 * `hebrew` – Default: `true`. Correct `ben, bat`.
 * `postnominal` – Default: `true`. Correct post-nominal e.g. `PhD`.
 
@@ -105,7 +105,7 @@ Formatter::nameCase('ČERNÝ MOST');
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing & Demo
 
@@ -149,6 +149,8 @@ PHP Version:
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+---
 
 [![Buy Me A Coffee][ico-coffee]][link-coffee]
 
