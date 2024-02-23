@@ -1,5 +1,5 @@
 build:
-  image: default-jammy
+  image: default-bionic
 
   nodes:
     build:
