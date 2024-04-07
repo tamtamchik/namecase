@@ -1,15 +1,17 @@
 # NameCase
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+![PHP][ico-php]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-scrutinizer-build]][link-scrutinizer]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
+
 [![SensioLabsInsight][ico-insight]][link-insight]
 
 Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert
-names into the correct case where possible. Although forenames and surnames are typically stored separately, if they 
+names into the correct case where possible. Although forenames and surnames are typically stored separately if they 
 appear in a single string, whitespace-separated, NameCase deals correctly with them.
 
 Currently, NameCase correctly name-cases names which include any of the following:
@@ -161,7 +163,8 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
 [ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
-[ico-insight]: https://img.shields.io/symfony/i/grade/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc.svg?style=flat-square
+[ico-insight]: https://insight.symfony.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc/small.svg
+[ico-php]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Ftamtamchik%2Fnamecase%2Fraw%2Fmaster%2Fcomposer.json&query=%24.require.php&style=flat-square&label=PHP
 
 [link-packagist]: https://packagist.org/packages/tamtamchik/namecase
 [link-travis]: https://app.travis-ci.com/github/tamtamchik/namecase
