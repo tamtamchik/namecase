@@ -201,7 +201,8 @@ class Formatter
         $original = $name;
 
         // Capitalize
-        $name = self::capitalize($name);
+        self::capitalize($name);
+
         foreach (self::getReplacements() as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
 
@@ -213,10 +214,10 @@ class Formatter
             // @codeCoverageIgnoreEnd
         }
 
-        $name = self::correctInitialNames($name);
-        $name = self::correctLowerCaseWords($name);
+        self::correctInitialNames($name);
+        self::correctLowerCaseWords($name);
 
-        $name = self::processOptions($name);
+        self::processOptions($name);
 
         // After name casing operations, restore HTML encoded entities
         self::restoreHtmlEntitiesFromPlaceholders($name, $placeholders);
@@ -259,10 +260,8 @@ class Formatter
      * Capitalize first letters.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function capitalize(string $name): string
+    private static function capitalize(string &$name): void
     {
         $name = mb_strtolower($name);
 
@@ -275,38 +274,34 @@ class Formatter
             return mb_strtolower($matches[0]);
         }, $name);
 
-        return self::updateIrish($name);
+        self::updateIrish($name);
     }
 
     /**
      * Update for Irish names.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function updateIrish(string $name): string
+    private static function updateIrish(string &$name): void
     {
-        if ( ! self::$options['irish']) return $name;
+        if ( ! self::$options['irish']) return;
 
         if (
             mb_ereg_match('.*?\bMac[A-Za-z]{2,}[^aciozj]\b', $name) ||
             mb_ereg_match('.*?\bMc', $name)
         ) {
-            $name = self::updateMac($name);
+            self::updateMac($name);
         }
 
-        return mb_ereg_replace('Macmurdo', 'MacMurdo', $name);
+        $name = mb_ereg_replace('Macmurdo', 'MacMurdo', $name);
     }
 
     /**
      * Updates irish Mac & Mc.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function updateMac(string $name): string
+    private static function updateMac(string &$name): void
     {
         $name = mb_ereg_replace_callback('\b(Ma?c)([A-Za-z]+)', function ($matches) {
             return $matches[1] . mb_strtoupper(mb_substr($matches[2], 0, 1)) . mb_substr($matches[2], 1);
@@ -316,8 +311,6 @@ class Formatter
         foreach (self::EXCEPTIONS as $pattern => $replacement) {
             $name = mb_ereg_replace($pattern, $replacement, $name);
         }
-
-        return $name;
     }
 
     /**
@@ -344,12 +337,10 @@ class Formatter
      * Correct capitalization of initial names like JJ and TJ.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function correctInitialNames(string $name): string
+    private static function correctInitialNames(string &$name): void
     {
-        return mb_ereg_replace_callback(self::INITIAL_NAME_REGEX, function ($matches) {
+        $name = mb_ereg_replace_callback(self::INITIAL_NAME_REGEX, function ($matches) {
             $match = $matches[0];
 
             if (in_array($matches[1], self::INITIAL_NAME_EXCEPTIONS)) {
@@ -364,51 +355,42 @@ class Formatter
      * Correct lower-case words of titles.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function correctLowerCaseWords(string $name): string
+    private static function correctLowerCaseWords(string &$name): void
     {
         foreach (self::LOWER_CASE_WORDS as $lowercase) {
             $name = mb_ereg_replace('\b' . $lowercase . '\b', mb_strtolower($lowercase), $name);
         }
-        return $name;
     }
 
     /**
      * Process options with given name
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function processOptions(string $name): string
+    private static function processOptions(string &$name): void
     {
         if (self::$options['roman']) {
-            $name = self::updateRoman($name);
+            self::updateRoman($name);
         }
 
         if (self::$options['spanish']) {
-            $name = self::fixConjunction($name);
+            self::fixConjunction($name);
         }
 
         if (self::$options['postnominal']) {
-            $name = self::fixPostNominal($name);
+            self::fixPostNominal($name);
         }
-
-        return $name;
     }
 
     /**
      * Fix roman numeral names.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function updateRoman(string $name): string
+    private static function updateRoman(string &$name): void
     {
-        return mb_ereg_replace_callback(self::ROMAN_REGEX, function ($matches) {
+        $name = mb_ereg_replace_callback(self::ROMAN_REGEX, function ($matches) {
             return mb_strtoupper($matches[0]);
         }, $name);
     }
@@ -417,35 +399,30 @@ class Formatter
      * Fix Spanish conjunctions.
      *
      * @param string $name
-     *
-     * @return string
      */
-    private static function fixConjunction(string $name): string
+    private static function fixConjunction(string &$name): void
     {
         foreach (self::CONJUNCTIONS as $conjunction) {
             $name = mb_ereg_replace('\b' . $conjunction . '\b', mb_strtolower($conjunction), $name);
         }
-        return $name;
     }
 
     /**
      * Fix post-nominal letter cases.
      *
      * @param string $name
-     * @return string
      */
-    private static function fixPostNominal(string $name): string
+    private static function fixPostNominal(string &$name): void
     {
         $postNominals = array_diff(self::POST_NOMINALS, self::$postNominalsExcluded);
         foreach ($postNominals as $postNominal) {
             $name = mb_ereg_replace('\b' . $postNominal . '\b', $postNominal, $name, 'ix');
         }
-        return $name;
     }
 
     /**
      * Replace HTML entities with placeholders.
-     * 
+     *
      * @param string $name
      * @return array
      */
