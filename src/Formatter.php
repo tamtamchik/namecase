@@ -190,6 +190,9 @@ class Formatter
 
         self::setOptions($options);
 
+        // Temporarily replace HTML encoded entities with placeholders
+        $placeholders = self::replaceHtmlEntitiesWithPlaceholders($name);
+
         // Do not do anything if string is mixed and lazy option is true.
         if ( ! self::canBeProcessed($name)) {
             return $name;
@@ -213,7 +216,12 @@ class Formatter
         $name = self::correctInitialNames($name);
         $name = self::correctLowerCaseWords($name);
 
-        return self::processOptions($name);
+        $name = self::processOptions($name);
+
+        // After name casing operations, restore HTML encoded entities
+        self::restoreHtmlEntitiesFromPlaceholders($name, $placeholders);
+
+        return $name;
     }
 
     /**
@@ -434,4 +442,37 @@ class Formatter
         }
         return $name;
     }
+
+    /**
+     * Replace HTML entities with placeholders.
+     * 
+     * @param string $name
+     * @return array
+     */
+    private static function replaceHtmlEntitiesWithPlaceholders(string &$name): array {
+        $placeholders = [];
+        $counter = 0;
+
+        $name = preg_replace_callback('/&[a-zA-Z0-9#]+;/i', function($matches) use (&$placeholders, &$counter) {
+            $placeholder = mb_strtolower('HTML_ENTITY_PLACEHOLDER_' . $counter++. ' '); // note space at the end, to avoid merging with the next word
+            $placeholders[$placeholder] = $matches[0];
+            return $placeholder;
+        }, $name);
+
+        return $placeholders;
+    }
+
+    /**
+     * Restore HTML entities.
+     *
+     * @param string $name
+     * @param array $placeholders
+     * @return void
+     */
+    private static function restoreHtmlEntitiesFromPlaceholders(string &$name, array $placeholders): void {
+        foreach ($placeholders as $placeholder => $entity) {
+            $name = preg_replace('/' . preg_quote($placeholder, '/') . '/i', $entity, $name);
+        }
+    }
+
 }
