@@ -40,29 +40,29 @@ class Formatter
 
     // General replacements.
     private const REPLACEMENTS = [
-        '\bAl(?=\s+\w)' => 'al',        // al Arabic or forename Al.
-        '\bAp\b' => 'ap',        // ap Welsh.
-        '\bBin\b' => 'bin',       // bin Arabic.
-        '\bBinti\b' => 'binti',       // binti Arabic.
-        '\bBinte\b' => 'binte',       // binte Arabic.
-        '\bDell([ae])\b' => 'dell\1',    // della and delle Italian.
-        '\bD([aeiou])\b' => 'd\1',       // da, de, di Italian; du French; do Brasil.
-        '\bD([ao]s)\b' => 'd\1',       // das, dos Brasileiros.
-        '\bDe([lrn])\b' => 'de\1',      // del Italian; der/den Dutch/Flemish.
-        '\bL([eo])\b' => 'l\1',       // lo Italian; le French.
-        '\bTe([rn])\b' => 'te\1',      // ten, ter Dutch/Flemish.
-        '\bVan(?=\s+\w)' => 'van',       // van German or forename Van.
-        '\bVon\b' => 'von',       // von Dutch/Flemish.
+        '\bAl(?=\s+\w)' => 'al',              // Arabic article before another name; ambiguous with forename Al.
+        '\bAp\b' => 'ap',                     // Welsh patronymic particle.
+        '\bBin\b' => 'bin',                   // Arabic/Malay son-of particle.
+        '\bBinti\b' => 'binti',               // Malay daughter-of particle.
+        '\bBinte\b' => 'binte',               // Daughter-of particle.
+        '\bDell([ae])\b' => 'dell\1',         // della and delle Italian.
+        '\bD([aeiou])\b' => 'd\1',            // da, de, di Italian; du French; do Portuguese.
+        '\bD([ao]s)\b' => 'd\1',              // das, dos Portuguese.
+        '\bDe([lrn])\b' => 'de\1',            // del Italian; der/den Dutch/Flemish.
+        '\bL([eo])\b' => 'l\1',               // lo Italian; le French.
+        '\bTe([rn])\b' => 'te\1',             // ten, ter Dutch/Flemish.
+        '\bVan(?=\s+\w)' => 'van',            // Dutch/Flemish particle before another name; ambiguous with forename Van.
+        '\bVon\b' => 'von',                   // German particle.
     ];
 
     private const SPANISH = [
-        '\bEl\b' => 'el',        // el Greek or El Spanish.
-        '\bLa\b' => 'la',        // la French or La Spanish.
+        '\bEl\b' => 'el',                     // Lowercase article by default; Spanish option keeps El.
+        '\bLa\b' => 'la',                     // French article by default; Spanish option keeps La.
     ];
 
     private const HEBREW = [
-        '(\S\s)Ben(?=\s+\w)' => '\1ben', // ben Hebrew or forename Ben.
-        '(\S\s)Bat(?=\s+\w)' => '\1bat', // bat Hebrew or forename Bat.
+        '(\S\s)Ben(?=\s+\w)' => '\1ben',      // Hebrew patronymic particle; keep forename Ben at start.
+        '(\S\s)Bat(?=\s+\w)' => '\1bat',      // Hebrew matronymic particle; keep Bat at start.
     ];
 
     // Spanish conjunctions.
