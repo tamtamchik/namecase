@@ -61,8 +61,8 @@ class Formatter
     ];
 
     private const HEBREW = [
-        '(\S\s)Ben(?=\s+\w)' => '\1ben',      // Hebrew patronymic particle; keep forename Ben at start.
-        '(\S\s)Bat(?=\s+\w)' => '\1bat',      // Hebrew matronymic particle; keep Bat at start.
+        '(\S\s+)Ben(?=\s+\w)' => '\1ben',     // Hebrew patronymic particle; keep forename Ben at start.
+        '(\S\s+)Bat(?=\s+\w)' => '\1bat',     // Hebrew matronymic particle; keep Bat at start.
     ];
 
     // Spanish conjunctions.
@@ -441,7 +441,7 @@ class Formatter
     {
         $postNominals = array_diff(self::POST_NOMINALS, self::$postNominalsExcluded);
         foreach ($postNominals as $postNominal) {
-            $pattern = '\b' . $postNominal . (mb_strlen($postNominal) <= 2 ? '$' : '\b');
+            $pattern = '\b' . $postNominal . (mb_strlen($postNominal) <= 2 ? '(?=\s*$)' : '\b');
             $name = mb_ereg_replace($pattern, $postNominal, $name, 'ix');
         }
         return $name;

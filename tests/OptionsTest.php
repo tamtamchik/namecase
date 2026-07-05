@@ -63,6 +63,8 @@ class OptionsTest extends TestCase
 
         Formatter::setOptions(['hebrew' => true]);
         $this->assertEquals('Aharon ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon BEN Amram Ha-Kohein')));
+        $this->assertEquals('Aharon  ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon  BEN Amram Ha-Kohein')));
+        $this->assertEquals("Aharon\tbat Sheva", Formatter::nameCase(mb_strtolower("Aharon\tBat Sheva")));
         $this->assertEquals('Ben Gurion', Formatter::nameCase(mb_strtolower('Ben Gurion')));
         $this->assertEquals('Bat Sheva', Formatter::nameCase(mb_strtolower('Bat Sheva')));
     }

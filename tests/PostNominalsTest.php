@@ -15,6 +15,7 @@ class PostNominalsTest extends TestCase
     {
         $this->assertEquals('Ed Oates', Formatter::nameCase('ED OATES'));
         $this->assertEquals('Tam ED', Formatter::nameCase('TAM ED'));
+        $this->assertEquals("Tam ED \n", Formatter::nameCase("TAM ED \n"));
     }
 
     public function testPerlPostNominalInitials(): void
