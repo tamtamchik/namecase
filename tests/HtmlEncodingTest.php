@@ -42,6 +42,20 @@ class HtmlEncodingTest extends TestCase
     {
         $this->assertEquals('Joe &amp Bob', str_name_case('joe &amp bob'));
         $this->assertEquals('Joe &amp Bob', str_name_case('JOE &AMP BOB'));
+        $this->assertEquals('Joe &lt Bob &gt Sue', str_name_case('JOE &LT BOB &GT SUE'));
+        $this->assertEquals('Joe &quot Bob', str_name_case('JOE &QUOT BOB'));
+    }
+
+    public function testStandardEntitiesAreNormalised(): void
+    {
+        $this->assertEquals('Joe &nbsp; Bob', str_name_case('JOE &NBSP; BOB'));
+        $this->assertEquals('Joe &#39;Bob&#39;', str_name_case('JOE &#39;BOB&#39;'));
+        $this->assertEquals('Joe &#x27;Bob&#x27;', str_name_case('JOE &#X27;BOB&#X27;'));
+    }
+
+    public function testEntityOnlyStringCanBeProcessed(): void
+    {
+        $this->assertEquals('&amp;', str_name_case('&AMP;'));
     }
 
     public function testLazyFalseDoesNotBreakEntities(): void

@@ -464,9 +464,12 @@ class Formatter
             $name
         );
 
+        // Very difficult to write a test in modern environments
+        // @codeCoverageIgnoreStart
         if ( ! is_string($standardEntities)) {
             return $name;
         }
+        // @codeCoverageIgnoreEnd
 
         $commonEntities = mb_ereg_replace_callback(
             '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
@@ -476,7 +479,14 @@ class Formatter
             $standardEntities
         );
 
-        return is_string($commonEntities) ? $commonEntities : $standardEntities;
+        // Very difficult to write a test in modern environments
+        // @codeCoverageIgnoreStart
+        if ( ! is_string($commonEntities)) {
+            return $standardEntities;
+        }
+        // @codeCoverageIgnoreEnd
+
+        return $commonEntities;
     }
 
     /**
@@ -494,9 +504,12 @@ class Formatter
             $name
         );
 
+        // Very difficult to write a test in modern environments
+        // @codeCoverageIgnoreStart
         if ( ! is_string($standardEntities)) {
             return $name;
         }
+        // @codeCoverageIgnoreEnd
 
         $commonEntities = mb_ereg_replace(
             '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
@@ -504,6 +517,13 @@ class Formatter
             $standardEntities
         );
 
-        return is_string($commonEntities) ? $commonEntities : $standardEntities;
+        // Very difficult to write a test in modern environments
+        // @codeCoverageIgnoreStart
+        if ( ! is_string($commonEntities)) {
+            return $standardEntities;
+        }
+        // @codeCoverageIgnoreEnd
+
+        return $commonEntities;
     }
 }
