@@ -1,8 +1,13 @@
 build:
-  image: default-bionic
+  dependencies:
+    override:
+      - php -r "copy('https://getcomposer.org/download/latest-2.x/composer.phar', 'composer.phar');"
+      - php composer.phar install --no-interaction --prefer-dist
 
   nodes:
-    build:
+    tests:
+      environment:
+        php: 7.3
       tests:
         override:
           - command: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
@@ -11,6 +16,8 @@ build:
               format: clover
 
     analysis:
+      environment:
+        php: 7.3
       tests:
         override:
           - php-scrutinizer-run
