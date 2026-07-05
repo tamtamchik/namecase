@@ -71,9 +71,6 @@ class Formatter
     // Roman letters regexp.
     private const ROMAN_REGEX = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
 
-    private const STANDARD_HTML_ENTITY_REGEX = '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);';
-    private const COMMON_HTML_ENTITY_REGEX = '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b';
-
     // Post nominal values.
     private const POST_NOMINALS = [
         'ACILEx', 'ACSM', 'ADC', 'AEPC', 'AFC', 'AFM', 'AICSM', 'AKC', 'AM', 'ARBRIBA', 'ARCS', 'ARRC', 'ARSM', 'AUH',
@@ -196,7 +193,7 @@ class Formatter
         $name = is_null($name) ? '' : $name;
 
         self::setOptions($options);
-        $name = self::adjustHTMLEntities($name);
+        $name = HTMLEntities::adjust($name);
 
         // Do not do anything if string is mixed and lazy option is true.
         if ( ! self::canBeProcessed($name)) {
@@ -221,7 +218,7 @@ class Formatter
         $name = self::correctInitialNames($name);
         $name = self::correctLowerCaseWords($name);
 
-        return self::adjustHTMLEntities(self::processOptions($name));
+        return HTMLEntities::adjust(self::processOptions($name));
     }
 
     /**
@@ -249,7 +246,7 @@ class Formatter
      */
     private static function skipMixed(string $name): bool
     {
-        $name = self::stripHTMLEntities($name);
+        $name = HTMLEntities::strip($name);
 
         if ($name == '') {
             return false;
@@ -450,51 +447,4 @@ class Formatter
         return $name;
     }
 
-    /**
-     * Keep HTML entities lower-case after name capitalization.
-     *
-     * @param string $name
-     *
-     * @return string
-     */
-    private static function adjustHTMLEntities(string $name): string
-    {
-        $name = mb_ereg_replace_callback(
-            self::STANDARD_HTML_ENTITY_REGEX,
-            function ($matches) {
-                return mb_strtolower($matches[0]);
-            },
-            $name
-        );
-
-        return mb_ereg_replace_callback(
-            self::COMMON_HTML_ENTITY_REGEX,
-            function ($matches) {
-                return mb_strtolower($matches[0]);
-            },
-            $name
-        );
-    }
-
-    /**
-     * Strip HTML entities from case checks.
-     *
-     * @param string $name
-     *
-     * @return string
-     */
-    private static function stripHTMLEntities(string $name): string
-    {
-        $name = mb_ereg_replace(
-            self::STANDARD_HTML_ENTITY_REGEX,
-            '',
-            $name
-        );
-
-        return mb_ereg_replace(
-            self::COMMON_HTML_ENTITY_REGEX,
-            '',
-            $name
-        );
-    }
 }
