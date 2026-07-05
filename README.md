@@ -74,15 +74,15 @@ $formatter = new Formatter(['spanish' => true]);
 
 // Or 
 $formatter->setOptions([
-    'lazy' = false, 
+    'lazy' => false,
     'postnominal' => false
 ]);
 
 // Or even
-Formatter::nameCase("VAN DYKE", ['lazy' = false]);
+Formatter::nameCase("VAN DYKE", ['lazy' => false]);
 
 // And for function
-str_name_case("VAN DYKE", ['lazy' = false]);
+str_name_case("VAN DYKE", ['lazy' => false]);
 ```
 
 ## Options

@@ -12,14 +12,16 @@ final class FunctionTest extends TestCase
         "van Dyke", "Van", "ap Llwyd Dafydd",
         "al Fahd", "Al",
         "el Grecco",
-        "ben Gurion", "Ben",
+        "Ben Gurion", "Ben",
+        "Bat Sheva", "Bat",
         "da Vinci",
         "di Caprio", "du Pont", "de Legate",
         "del Crond", "der Sind", "van der Post", "van den Thillart",
         "ter Zanden", "ten Brink",
         "von Trapp", "la Poisson", "le Figaro",
         "Mack Knife", "Dougal MacDonald",
-        "Yusof bin Ishak",
+        "Aharon ben Amram Ha-Kohein",
+        "Yusof bin Ishak", "Fatimah binti Ali", "Aminah binte Musa",
     ];
 
     /** Test function call. */

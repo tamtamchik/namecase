@@ -59,10 +59,12 @@ class OptionsTest extends TestCase
         Formatter::setOptions(['hebrew' => false]);
         $this->assertEquals('Aharon Ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon BEN Amram Ha-Kohein')));
         $this->assertEquals('Ben Gurion', Formatter::nameCase(mb_strtolower('ben Gurion')));
+        $this->assertEquals('Bat Sheva', Formatter::nameCase(mb_strtolower('Bat Sheva')));
 
         Formatter::setOptions(['hebrew' => true]);
         $this->assertEquals('Aharon ben Amram Ha-Kohein', Formatter::nameCase(mb_strtolower('Aharon BEN Amram Ha-Kohein')));
-        $this->assertEquals('ben Gurion', Formatter::nameCase(mb_strtolower('Ben Gurion')));
+        $this->assertEquals('Ben Gurion', Formatter::nameCase(mb_strtolower('Ben Gurion')));
+        $this->assertEquals('Bat Sheva', Formatter::nameCase(mb_strtolower('Bat Sheva')));
     }
 
     /** Test `postnominal` option */

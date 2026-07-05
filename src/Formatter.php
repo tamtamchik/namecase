@@ -42,7 +42,9 @@ class Formatter
     private const REPLACEMENTS = [
         '\bAl(?=\s+\w)' => 'al',        // al Arabic or forename Al.
         '\bAp\b' => 'ap',        // ap Welsh.
-        '\b(Bin|Binti|Binte)\b' => 'bin',       // bin, binti, binte Arabic.
+        '\bBin\b' => 'bin',       // bin Arabic.
+        '\bBinti\b' => 'binti',       // binti Arabic.
+        '\bBinte\b' => 'binte',       // binte Arabic.
         '\bDell([ae])\b' => 'dell\1',    // della and delle Italian.
         '\bD([aeiou])\b' => 'd\1',       // da, de, di Italian; du French; do Brasil.
         '\bD([ao]s)\b' => 'd\1',       // das, dos Brasileiros.
@@ -59,8 +61,8 @@ class Formatter
     ];
 
     private const HEBREW = [
-        '\bBen(?=\s+\w)' => 'ben', // ben Hebrew or forename Ben.
-        '\bBat(?=\s+\w)' => 'bat', // bat Hebrew or forename Bat.
+        '(\S\s)Ben(?=\s+\w)' => '\1ben', // ben Hebrew or forename Ben.
+        '(\S\s)Bat(?=\s+\w)' => '\1bat', // bat Hebrew or forename Bat.
     ];
 
     // Spanish conjunctions.
@@ -88,14 +90,13 @@ class Formatter
         'ICTTech', 'IDSM', 'IEng', 'IMarEng', 'IOMCPM', 'ISO',
         'J', 'JP', 'JrLog',
         'KBE', 'KC', 'KCB', 'KCIE', 'KCMG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
-        'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', /* 'LT', - excluded, see initial names */
+        'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', 'LT',
         'LVO',
         'MA', 'MAcc', 'MAnth', 'MArch', 'MarEngTech', 'MB', 'MBA', 'MBChB', 'MBE', 'MBEIOM', 'MBiochem', 'MC', 'MCEM',
         'MCGI', 'MCh.', 'MChem', 'MChiro', 'MClinRes', 'MComp', 'MCOptom', 'MCSM', 'MCSP', 'MD', 'MEarthSc',
         'MEng', 'MEnt', 'MEP', 'MFHOM', 'MFin', 'MFPM', 'MGeol', 'MILT', 'MJur', 'MLA', 'MLitt', 'MM', 'MMath',
         'MMathStat', 'MMORSE', 'MMus', 'MOst', 'MP', 'MPAMEd', 'MPharm', 'MPhil', 'MPhys', 'MRCGP', 'MRCOG',
-        'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes',
-        /* 'MS', - excluded, see initial names */
+        'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes', 'MS',
         'MSc', 'MScChiro', 'MSci',
         'MSCR', 'MSM', 'MSocSc', 'MSP', 'MSt', 'MSW', 'MSYP', 'MVO',
         'NPQH',
@@ -106,10 +107,13 @@ class Formatter
         'SCHM', 'SCJ', 'SCLD', 'SEN', 'SGM', 'SL', 'SPANSPMH', 'SPCC', 'SPCN', 'SPDN', 'SPHP', 'SPLD', 'SrLog', 'SRN', 'SROT',
         'TD',
         'UD',
-        'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD'
+        'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD',
+        'AE', 'ARB', 'BVSc', 'BVetMed', 'CMarEng', 'CMarSci', 'CPL', 'CSci', 'CTP', 'FBDO', 'FCOptom',
+        'FFPMRCA', 'FRCA', 'FRCPCH', 'FdA', 'FdSc', 'IOM', 'MEd', 'MPA', 'MRCPCH', 'PC',
+        'QTS', 'RIBA', 'RN1', 'RNA', 'SPAN', 'SPMH'
     ];
 
-    // Excluded post-nominals
+    // Initial names.
     private const INITIAL_NAME_REGEX = '\b(Aj|[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{2})\s';
 
     // Most two-letter words with no vowels should be kept in all caps as initials
@@ -189,6 +193,7 @@ class Formatter
         $name = is_null($name) ? '' : $name;
 
         self::setOptions($options);
+        $name = self::adjustHTMLEntities($name);
 
         // Do not do anything if string is mixed and lazy option is true.
         if ( ! self::canBeProcessed($name)) {
@@ -213,7 +218,7 @@ class Formatter
         $name = self::correctInitialNames($name);
         $name = self::correctLowerCaseWords($name);
 
-        return self::processOptions($name);
+        return self::adjustHTMLEntities(self::processOptions($name));
     }
 
     /**
@@ -241,6 +246,12 @@ class Formatter
      */
     private static function skipMixed(string $name): bool
     {
+        $name = self::stripHTMLEntities($name);
+
+        if ($name == '') {
+            return false;
+        }
+
         $firstLetterLower = $name[0] == mb_strtolower($name[0]);
         $allLowerOrUpper = (mb_strtolower($name) == $name || mb_strtoupper($name) == $name);
 
@@ -430,8 +441,69 @@ class Formatter
     {
         $postNominals = array_diff(self::POST_NOMINALS, self::$postNominalsExcluded);
         foreach ($postNominals as $postNominal) {
-            $name = mb_ereg_replace('\b' . $postNominal . '\b', $postNominal, $name, 'ix');
+            $pattern = '\b' . $postNominal . (mb_strlen($postNominal) <= 2 ? '$' : '\b');
+            $name = mb_ereg_replace($pattern, $postNominal, $name, 'ix');
         }
         return $name;
+    }
+
+    /**
+     * Keep HTML entities lower-case after name capitalization.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    private static function adjustHTMLEntities(string $name): string
+    {
+        $standardEntities = mb_ereg_replace_callback(
+            '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);',
+            function ($matches) {
+                return mb_strtolower($matches[0]);
+            },
+            $name
+        );
+
+        if ( ! is_string($standardEntities)) {
+            return $name;
+        }
+
+        $commonEntities = mb_ereg_replace_callback(
+            '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
+            function ($matches) {
+                return mb_strtolower($matches[0]);
+            },
+            $standardEntities
+        );
+
+        return is_string($commonEntities) ? $commonEntities : $standardEntities;
+    }
+
+    /**
+     * Strip HTML entities from case checks.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    private static function stripHTMLEntities(string $name): string
+    {
+        $standardEntities = mb_ereg_replace(
+            '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);',
+            '',
+            $name
+        );
+
+        if ( ! is_string($standardEntities)) {
+            return $name;
+        }
+
+        $commonEntities = mb_ereg_replace(
+            '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
+            '',
+            $standardEntities
+        );
+
+        return is_string($commonEntities) ? $commonEntities : $standardEntities;
     }
 }
