@@ -40,27 +40,29 @@ class Formatter
 
     // General replacements.
     private const REPLACEMENTS = [
-        '\bAl(?=\s+\w)' => 'al',        // al Arabic or forename Al.
-        '\bAp\b' => 'ap',        // ap Welsh.
-        '\b(Bin|Binti|Binte)\b' => 'bin',       // bin, binti, binte Arabic.
-        '\bDell([ae])\b' => 'dell\1',    // della and delle Italian.
-        '\bD([aeiou])\b' => 'd\1',       // da, de, di Italian; du French; do Brasil.
-        '\bD([ao]s)\b' => 'd\1',       // das, dos Brasileiros.
-        '\bDe([lrn])\b' => 'de\1',      // del Italian; der/den Dutch/Flemish.
-        '\bL([eo])\b' => 'l\1',       // lo Italian; le French.
-        '\bTe([rn])\b' => 'te\1',      // ten, ter Dutch/Flemish.
-        '\bVan(?=\s+\w)' => 'van',       // van German or forename Van.
-        '\bVon\b' => 'von',       // von Dutch/Flemish.
+        '\bAl(?=\s+\w)' => 'al',              // Arabic article before another name; ambiguous with forename Al.
+        '\bAp\b' => 'ap',                     // Welsh patronymic particle.
+        '\bBin\b' => 'bin',                   // Arabic/Malay son-of particle.
+        '\bBinti\b' => 'binti',               // Malay daughter-of particle.
+        '\bBinte\b' => 'binte',               // Daughter-of particle.
+        '\bDell([ae])\b' => 'dell\1',         // della and delle Italian.
+        '\bD([aeiou])\b' => 'd\1',            // da, de, di Italian; du French; do Portuguese.
+        '\bD([ao]s)\b' => 'd\1',              // das, dos Portuguese.
+        '\bDe([lrn])\b' => 'de\1',            // del Italian; der/den Dutch/Flemish.
+        '\bL([eo])\b' => 'l\1',               // lo Italian; le French.
+        '\bTe([rn])\b' => 'te\1',             // ten, ter Dutch/Flemish.
+        '\bVan(?=\s+\w)' => 'van',            // Dutch/Flemish particle before another name; ambiguous with forename Van.
+        '\bVon\b' => 'von',                   // German particle.
     ];
 
     private const SPANISH = [
-        '\bEl\b' => 'el',        // el Greek or El Spanish.
-        '\bLa\b' => 'la',        // la French or La Spanish.
+        '\bEl\b' => 'el',                     // Lowercase article by default; Spanish option keeps El.
+        '\bLa\b' => 'la',                     // French article by default; Spanish option keeps La.
     ];
 
     private const HEBREW = [
-        '\bBen(?=\s+\w)' => 'ben', // ben Hebrew or forename Ben.
-        '\bBat(?=\s+\w)' => 'bat', // bat Hebrew or forename Bat.
+        '(\S\s+)Ben(?=\s+\w)' => '\1ben',     // Hebrew patronymic particle; keep forename Ben at start.
+        '(\S\s+)Bat(?=\s+\w)' => '\1bat',     // Hebrew matronymic particle; keep Bat at start.
     ];
 
     // Spanish conjunctions.
@@ -88,14 +90,13 @@ class Formatter
         'ICTTech', 'IDSM', 'IEng', 'IMarEng', 'IOMCPM', 'ISO',
         'J', 'JP', 'JrLog',
         'KBE', 'KC', 'KCB', 'KCIE', 'KCMG', 'KCSI', 'KCVO', 'KG', 'KP', 'KT',
-        'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', /* 'LT', - excluded, see initial names */
+        'LFHOM', 'LG', 'LJ', 'LLB', 'LLD', 'LLM', 'Log', 'LPE', 'LT',
         'LVO',
         'MA', 'MAcc', 'MAnth', 'MArch', 'MarEngTech', 'MB', 'MBA', 'MBChB', 'MBE', 'MBEIOM', 'MBiochem', 'MC', 'MCEM',
         'MCGI', 'MCh.', 'MChem', 'MChiro', 'MClinRes', 'MComp', 'MCOptom', 'MCSM', 'MCSP', 'MD', 'MEarthSc',
         'MEng', 'MEnt', 'MEP', 'MFHOM', 'MFin', 'MFPM', 'MGeol', 'MILT', 'MJur', 'MLA', 'MLitt', 'MM', 'MMath',
         'MMathStat', 'MMORSE', 'MMus', 'MOst', 'MP', 'MPAMEd', 'MPharm', 'MPhil', 'MPhys', 'MRCGP', 'MRCOG',
-        'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes',
-        /* 'MS', - excluded, see initial names */
+        'MRCP', 'MRCPath', 'MRCPCHFRCPCH', 'MRCPsych', 'MRCS', 'MRCVS', 'MRes', 'MS',
         'MSc', 'MScChiro', 'MSci',
         'MSCR', 'MSM', 'MSocSc', 'MSP', 'MSt', 'MSW', 'MSYP', 'MVO',
         'NPQH',
@@ -106,10 +107,13 @@ class Formatter
         'SCHM', 'SCJ', 'SCLD', 'SEN', 'SGM', 'SL', 'SPANSPMH', 'SPCC', 'SPCN', 'SPDN', 'SPHP', 'SPLD', 'SrLog', 'SRN', 'SROT',
         'TD',
         'UD',
-        'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD'
+        'V100', 'V200', 'V300', 'VC', 'VD', 'VetMB', 'VN', 'VRD',
+        'AE', 'ARB', 'BVSc', 'BVetMed', 'CMarEng', 'CMarSci', 'CPL', 'CSci', 'CTP', 'FBDO', 'FCOptom',
+        'FFPMRCA', 'FRCA', 'FRCPCH', 'FdA', 'FdSc', 'IOM', 'MEd', 'MPA', 'MRCPCH', 'PC',
+        'QTS', 'RIBA', 'RN1', 'RNA', 'SPAN', 'SPMH'
     ];
 
-    // Excluded post-nominals
+    // Initial names.
     private const INITIAL_NAME_REGEX = '\b(Aj|[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{2})\s';
 
     // Most two-letter words with no vowels should be kept in all caps as initials
@@ -189,6 +193,7 @@ class Formatter
         $name = is_null($name) ? '' : $name;
 
         self::setOptions($options);
+        $name = HTMLEntities::adjust($name);
 
         // Do not do anything if string is mixed and lazy option is true.
         if ( ! self::canBeProcessed($name)) {
@@ -213,7 +218,7 @@ class Formatter
         $name = self::correctInitialNames($name);
         $name = self::correctLowerCaseWords($name);
 
-        return self::processOptions($name);
+        return HTMLEntities::adjust(self::processOptions($name));
     }
 
     /**
@@ -241,6 +246,12 @@ class Formatter
      */
     private static function skipMixed(string $name): bool
     {
+        $name = HTMLEntities::strip($name);
+
+        if ($name == '') {
+            return false;
+        }
+
         $firstLetterLower = $name[0] == mb_strtolower($name[0]);
         $allLowerOrUpper = (mb_strtolower($name) == $name || mb_strtoupper($name) == $name);
 
@@ -430,8 +441,10 @@ class Formatter
     {
         $postNominals = array_diff(self::POST_NOMINALS, self::$postNominalsExcluded);
         foreach ($postNominals as $postNominal) {
-            $name = mb_ereg_replace('\b' . $postNominal . '\b', $postNominal, $name, 'ix');
+            $pattern = '\b' . $postNominal . (mb_strlen($postNominal) <= 2 ? '(?=\s*$)' : '\b');
+            $name = mb_ereg_replace($pattern, $postNominal, $name, 'ix');
         }
         return $name;
     }
+
 }

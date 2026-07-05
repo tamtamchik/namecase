@@ -4,6 +4,19 @@ All Notable changes to `tamtamchik/namecase` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 3.1.0 - 2026-07-05
+
+### Fixed
+
+- Preserve lowercase HTML entities while name-casing strings (#20).
+- Preserve `Ben` and `Bat` as first names, matching `Lingua::EN::NameCase`.
+- Preserve `binti` and `binte` instead of normalizing both to `bin`.
+- Avoid treating `Ed` in names such as `Ed Oates` as a post-nominal.
+
+### Added
+
+- Post-nominal initials present in `Lingua::EN::NameCase`.
+
 ## 3.0.0 - 2023-01-26
 
 **Breaking Change!** Minimum PHP version is now 7.3.
