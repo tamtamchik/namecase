@@ -45,7 +45,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0-dev",
+            "dev-master": "3.1-dev",
             "2.x": "2.x-dev",
             "1.x": "1.x-dev"
         }
