@@ -71,6 +71,9 @@ class Formatter
     // Roman letters regexp.
     private const ROMAN_REGEX = '\b((?:[Xx]{1,3}|[Xx][Ll]|[Ll][Xx]{0,3})?(?:[Ii]{1,3}|[Ii][VvXx]|[Vv][Ii]{0,3})?)\b';
 
+    private const STANDARD_HTML_ENTITY_REGEX = '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);';
+    private const COMMON_HTML_ENTITY_REGEX = '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b';
+
     // Post nominal values.
     private const POST_NOMINALS = [
         'ACILEx', 'ACSM', 'ADC', 'AEPC', 'AFC', 'AFM', 'AICSM', 'AKC', 'AM', 'ARBRIBA', 'ARCS', 'ARRC', 'ARSM', 'AUH',
@@ -456,37 +459,21 @@ class Formatter
      */
     private static function adjustHTMLEntities(string $name): string
     {
-        $standardEntities = mb_ereg_replace_callback(
-            '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);',
+        $name = mb_ereg_replace_callback(
+            self::STANDARD_HTML_ENTITY_REGEX,
             function ($matches) {
                 return mb_strtolower($matches[0]);
             },
             $name
         );
 
-        // Very difficult to write a test in modern environments
-        // @codeCoverageIgnoreStart
-        if ( ! is_string($standardEntities)) {
-            return $name;
-        }
-        // @codeCoverageIgnoreEnd
-
-        $commonEntities = mb_ereg_replace_callback(
-            '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
+        return mb_ereg_replace_callback(
+            self::COMMON_HTML_ENTITY_REGEX,
             function ($matches) {
                 return mb_strtolower($matches[0]);
             },
-            $standardEntities
+            $name
         );
-
-        // Very difficult to write a test in modern environments
-        // @codeCoverageIgnoreStart
-        if ( ! is_string($commonEntities)) {
-            return $standardEntities;
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $commonEntities;
     }
 
     /**
@@ -498,32 +485,16 @@ class Formatter
      */
     private static function stripHTMLEntities(string $name): string
     {
-        $standardEntities = mb_ereg_replace(
-            '&([A-Za-z][A-Za-z0-9]+|#[0-9]+|#[xX][0-9A-Fa-f]+);',
+        $name = mb_ereg_replace(
+            self::STANDARD_HTML_ENTITY_REGEX,
             '',
             $name
         );
 
-        // Very difficult to write a test in modern environments
-        // @codeCoverageIgnoreStart
-        if ( ! is_string($standardEntities)) {
-            return $name;
-        }
-        // @codeCoverageIgnoreEnd
-
-        $commonEntities = mb_ereg_replace(
-            '&([aA][mM][pP]|[lL][tT]|[gG][tT]|[qQ][uU][oO][tT])\b',
+        return mb_ereg_replace(
+            self::COMMON_HTML_ENTITY_REGEX,
             '',
-            $standardEntities
+            $name
         );
-
-        // Very difficult to write a test in modern environments
-        // @codeCoverageIgnoreStart
-        if ( ! is_string($commonEntities)) {
-            return $standardEntities;
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $commonEntities;
     }
 }
