@@ -1,178 +1,207 @@
-# NameCase
+<p align="center">
+  <img src="docs/assets/namecase-readme-banner.png" alt="NameCase" width="100%">
+</p>
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-![PHP][ico-php]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-scrutinizer-build]][link-scrutinizer]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+<p align="center">
+  <strong>Personal name capitalization for PHP.</strong>
+</p>
 
-[![SensioLabsInsight][ico-insight]][link-insight]
+<p align="center">
+  <a href="https://packagist.org/packages/tamtamchik/namecase"><img alt="Latest version on Packagist" src="https://img.shields.io/packagist/v/tamtamchik/namecase?style=flat-square"></a>
+  <a href="https://packagist.org/packages/tamtamchik/namecase"><img alt="Total downloads" src="https://img.shields.io/packagist/dt/tamtamchik/namecase?style=flat-square"></a>
+  <a href="https://packagist.org/packages/tamtamchik/namecase"><img alt="PHP 7.3 or later" src="https://img.shields.io/badge/PHP-%3E%3D7.3-777BB4?style=flat-square&logo=php&logoColor=white"></a>
+  <a href="https://github.com/tamtamchik/namecase/actions/workflows/tests.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/tamtamchik/namecase/tests.yml?branch=master&style=flat-square&label=CI"></a>
+  <a href="https://scrutinizer-ci.com/g/tamtamchik/namecase/"><img alt="Scrutinizer build" src="https://img.shields.io/scrutinizer/build/g/tamtamchik/namecase/master?style=flat-square"></a>
+  <a href="https://scrutinizer-ci.com/g/tamtamchik/namecase/"><img alt="Scrutinizer quality" src="https://img.shields.io/scrutinizer/quality/g/tamtamchik/namecase/master?style=flat-square"></a>
+  <a href="https://scrutinizer-ci.com/g/tamtamchik/namecase/"><img alt="Code coverage" src="https://img.shields.io/scrutinizer/coverage/g/tamtamchik/namecase/master?style=flat-square"></a>
+  <a href="LICENSE.md"><img alt="License MIT" src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square"></a>
+</p>
 
-Forenames and surnames are often stored either entirely in UPPERCASE or lowercase. This package allows you to convert
-names into the correct case where possible. Although forenames and surnames are typically stored separately if they 
-appear in a single string, whitespace-separated, NameCase deals correctly with them.
+<p align="center">
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#options">Options</a> ·
+  <a href="#development-setup">Development Setup</a> ·
+  <a href="#documentation">Documentation</a> ·
+  <a href="#support">Support</a>
+</p>
 
-Currently, NameCase correctly name-cases names which include any of the following:
+NameCase converts names stored in UPPERCASE or lowercase into conventional
+capitalization where possible. It handles full names, apostrophes, hyphens,
+particles such as `van` and `de`, Irish `Mc` and `Mac` prefixes, Roman numerals,
+and post-nominal letters such as `PhD`.
 
+## Quick Start
+
+Requires PHP 7.3 or later and the `mbstring` extension.
+
+Install with Composer:
+
+```shell
+composer require tamtamchik/namecase
 ```
-Mc, Mac, al, el, ap, bat, ben, bin, binti, binte, da, de, das, dos, delle, della, di, du, del, der, den, ten, ter, la, le, lo, van and von.
+
+Format a name:
+
+```php
+require 'vendor/autoload.php';
+
+use Tamtamchik\NameCase\Formatter;
+
+echo Formatter::nameCase("O'CALLAGHAN");
+// O'Callaghan
 ```
 
-It correctly deals with names that contain apostrophes and hyphens, too.
-
-> [!NOTE]
-> This README.md is for version 3.x.  
-> If you need a PHP 5 compatible version, please use
-> 1.0.x! [README.md](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase)
-
-## Install
-
-Via Composer
-
-```bash
-$ composer require tamtamchik/namecase
-```
+This README covers version 3.x. For PHP 5, use version 1.0.x and its
+[README](https://github.com/tamtamchik/namecase/blob/1.0.x/README.md#namecase).
 
 ## Usage
 
+### Static Calls
+
 ```php
-use \Tamtamchik\NameCase\Formatter;
-use function \Tamtamchik\NameCase\str_name_case;
+use Tamtamchik\NameCase\Formatter;
 
-// As a static call
-Formatter::nameCase("KEITH");                            // => Keith
-Formatter::nameCase("LEIGH-WILLIAMS");                   // => Leigh-Williams
-Formatter::nameCase("MCCARTHY");                         // => McCarthy
-Formatter::nameCase("O'CALLAGHAN");                      // => O'Callaghan
-Formatter::nameCase("ST. JOHN");                         // => St. John
-Formatter::nameCase("VON STREIT");                       // => von Streit
-Formatter::nameCase("AP LLWYD DAFYDD");                  // => ap Llwyd Dafydd
-Formatter::nameCase("HENRY VIII");                       // => Henry VIII
-Formatter::nameCase("VAN DYKE");                         // => van Dyke
+Formatter::nameCase('KEITH');              // Keith
+Formatter::nameCase('LEIGH-WILLIAMS');     // Leigh-Williams
+Formatter::nameCase('MCCARTHY');           // McCarthy
+Formatter::nameCase("O'CALLAGHAN");        // O'Callaghan
+Formatter::nameCase('ST. JOHN');           // St. John
+Formatter::nameCase('VON STREIT');         // von Streit
+Formatter::nameCase('AP LLWYD DAFYDD');     // ap Llwyd Dafydd
+Formatter::nameCase('HENRY VIII');         // Henry VIII
+Formatter::nameCase('VAN DYKE');            // van Dyke
+```
 
-// Or as an instance
+### Instances and Function Calls
+
+The same formatter is available through an instance or a namespaced function:
+
+```php
+use Tamtamchik\NameCase\Formatter;
+use function Tamtamchik\NameCase\str_name_case;
+
 $formatter = new Formatter();
-$formatter->nameCase("LOUIS XIV");                       // => Louis XIV
+$formatter->nameCase('LOUIS XIV'); // Louis XIV
 
-// Or as a function
-str_name_case("JJ ABRAMS");                              // => JJ Abrams
+str_name_case('JJ ABRAMS'); // JJ Abrams
+```
 
-// Passing options (see below for details)
-Formatter::setOptions([
-  'lazy'        => true,
-  'irish'       => true,
-  'spanish'     => false,
-  'roman'       => true,
-  'hebrew'      => true,
-  'postnominal' => true,
-]);
+### Mixed Case
 
-// Or
-$formatter = new Formatter(['spanish' => true]);
+The `lazy` option defaults to `true`: names recognized as mixed case are kept
+as supplied. Set it to `false` to reformat them:
 
-// Or 
-$formatter->setOptions([
-    'lazy' => false,
-    'postnominal' => false
-]);
-
-// Or even
-Formatter::nameCase("VAN DYKE", ['lazy' => false]);
-
-// And for function
-str_name_case("VAN DYKE", ['lazy' => false]);
+```php
+Formatter::nameCase('Dougal MACDonald');                    // Dougal MACDonald
+Formatter::nameCase('Dougal MACDonald', ['lazy' => false]); // Dougal MacDonald
+Formatter::setOptions(['lazy' => true]);                    // Restore the default.
 ```
 
 ## Options
 
-* `lazy` – Default: `true`. Do not do anything if the string is already mixed case and the lazy option is `true`.
-* `irish` – Default: `true`. Correct "Mac" exceptions.
-* `spanish` – Default: `false`. Correct `el, la` and Spanish conjunctions.
-* `roman` – Default: `true`. Correct Roman numbers.
-* `hebrew` – Default: `true`. Correct `ben, bat`.
-* `postnominal` – Default: `true`. Correct post-nominal e.g. `PhD`.
+| Option | Default | Behavior when enabled |
+| --- | --- | --- |
+| `lazy` | `true` | Keep names recognized as mixed case unchanged. |
+| `irish` | `true` | Apply `Mc` and `Mac` capitalization rules and exceptions. |
+| `spanish` | `false` | Keep `El` and `La` capitalized and lowercase the conjunctions `y`, `e`, and `i`. |
+| `roman` | `true` | Uppercase recognized Roman numerals, such as `VIII` and `XIV`. |
+| `hebrew` | `true` | Lowercase `ben` and `bat` between name components. |
+| `postnominal` | `true` | Restore recognized post-nominal letters, such as `PhD` and `CBE`. |
 
-## Exclude Post-Nominals
+Set options through `Formatter::setOptions()`, the constructor, or the second
+argument of `nameCase()` and `str_name_case()`:
 
 ```php
-<?php
+Formatter::setOptions(['spanish' => true]);
+Formatter::nameCase('RUIZ Y PICASSO'); // Ruiz y Picasso
 
-use Tamtamchik\NameCase\Formatter;
+$formatter = new Formatter(['spanish' => false]);
+$formatter->nameCase('EL GRECCO'); // el Grecco
 
+str_name_case('EL PASO', ['spanish' => true]); // El Paso
+Formatter::setOptions(['spanish' => false]);
+```
+
+Options are shared static state. Changes through any of these APIs affect
+subsequent calls and all instances; omitted options retain their current values.
+An instance does not hold an independent configuration.
+
+### Exclude Post-Nominals
+
+Exclude a recognized post-nominal when it is part of a name instead of a title:
+
+```php
 Formatter::excludePostNominals('MOst');
-
-Formatter::nameCase('ČERNÝ MOST');
+Formatter::nameCase('ČERNÝ MOST'); // Černý Most
 ```
 
-## Changelog
+Pass a string or an array of exact post-nominal spellings. Exclusions accumulate
+and apply to subsequent calls across all instances.
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+## Development Setup
 
-## Testing & Demo
+Install dependencies and run the checks used in CI:
 
-```bash
-$ composer tests
-$ composer demo
+```shell
+composer install
+composer validate --strict
+composer tests
 ```
 
-## Contributing
+CI tests PHP 7.3, 7.4, and 8.0 through 8.5 with `mbstring` enabled.
+Run the command-line examples with:
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
+```shell
+composer demo
+```
+
+## Documentation
+
+- [Website](https://tamtamchik.github.io/namecase/): documentation on GitHub Pages.
+- [Packagist](https://packagist.org/packages/tamtamchik/namecase): published versions and installation details.
+- [Formatter](src/Formatter.php): capitalization rules, options, and post-nominal exclusions.
+- [Function](src/function.php): the `str_name_case()` wrapper.
+- [Tests](tests/): names, options, HTML entities, and post-nominals.
+- [Changelog](CHANGELOG.md): release history.
+- [CI](https://github.com/tamtamchik/namecase/actions/workflows/tests.yml): Composer validation and test results.
+
+## Limitations
+
+Capitalization rules are heuristics. Personal preferences and naming conventions
+vary, so preserve a person's supplied spelling when it is known. Options can
+resolve some ambiguities: for example, disable `roman` to avoid treating `Li`
+as a Roman numeral.
 
 ## Security
 
-If you discover any security-related issues, please email <yuri.tam.tkachenko@gmail.com> instead of using the issue
-tracker.
+Report vulnerabilities by emailing
+[yuri.tam.tkachenko@gmail.com](mailto:yuri.tam.tkachenko@gmail.com).
+
+## Contributing
+
+See [Contributing](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md)
+for guidelines.
 
 ## Acknowledgements
 
-This library is a port of the [Perl library](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19) and owes most
-of its functionality to the Perl version by Mark Summerfield.  
-I also used some solutions from [Ruby version](https://github.com/tenderlove/namecase) by Aaron Patterson.  
+This library is a port of the
+[Perl library Lingua::EN::NameCase](https://metacpan.org/release/BARBIE/Lingua-EN-NameCase-1.19)
+by Mark Summerfield and Barbie. Some solutions come from
+[Aaron Patterson's Ruby version](https://github.com/tenderlove/namecase).
 Any bugs in the PHP port are my fault.
 
-## Credits
+- Perl version: copyright Mark Summerfield 1998–2014 and Barbie 2014–2019.
+- Ruby version: copyright Aaron Patterson 2006.
+- PHP version: [Yuri Tkachenko](https://github.com/tamtamchik) and
+  [all contributors](https://github.com/tamtamchik/namecase/graphs/contributors).
 
-Original PERL `Lingua::EN::NameCase` Version:
+## Support
 
-- Copyright &copy; Mark Summerfield 1998-2014. All Rights Reserved.
-- Copyright &copy; Barbie 2014-2019. All Rights Reserved.
-
-Ruby Version:
-
-- Copyright &copy; Aaron Patterson 2006. All Rights Reserved.
-
-PHP Version:
-
-- [Yuri Tkachenko][link-author]
-- [All Contributors][link-contributors]
+<p>
+  <a href="https://www.buymeacoffee.com/tamtamchik"><img alt="Buy me a coffee" src="https://img.shields.io/badge/Buy%20Me%20A-Coffee-6F4E37?style=flat-square&logo=buymeacoffee&logoColor=white"></a>
+</p>
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
----
-
-[![Buy Me A Coffee][ico-coffee]][link-coffee]
-
-[ico-version]: https://img.shields.io/packagist/v/tamtamchik/namecase.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-scrutinizer-build]: https://img.shields.io/scrutinizer/build/g/tamtamchik/namecase.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/tamtamchik/namecase.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/tamtamchik/namecase.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/tamtamchik/namecase.svg?style=flat-square
-[ico-coffee]: https://img.shields.io/badge/Buy%20Me%20A-Coffee-%236F4E37.svg?style=flat-square
-[ico-insight]: https://insight.symfony.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc/small.svg
-[ico-php]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Ftamtamchik%2Fnamecase%2Fraw%2Fmaster%2Fcomposer.json&query=%24.require.php&style=flat-square&label=PHP
-
-[link-packagist]: https://packagist.org/packages/tamtamchik/namecase
-[link-travis]: https://app.travis-ci.com/github/tamtamchik/namecase
-[link-scrutinizer]: https://scrutinizer-ci.com/g/tamtamchik/namecase/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/tamtamchik/namecase
-[link-downloads]: https://packagist.org/packages/tamtamchik/namecase
-[link-author]: https://github.com/tamtamchik
-[link-contributors]: ../../contributors
-[link-coffee]: https://www.buymeacoffee.com/tamtamchik
-[link-insight]: https://insight.symfony.com/projects/29bec8f4-aeb0-4a62-9c2e-2d93a0a71bcc
+[MIT](LICENSE.md).
